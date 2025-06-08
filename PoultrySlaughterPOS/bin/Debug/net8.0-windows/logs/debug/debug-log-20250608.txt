@@ -1,0 +1,582 @@
+[2025-06-08 20:56:17.398 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 20:56:17.479 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 20:56:18.281 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 20:56:18.382 +03:00 INF] : Service configuration completed successfully with 115 services registered (complete customer management integration)
+[2025-06-08 20:56:18.448 +03:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+[2025-06-08 20:56:18.453 +03:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Production
+[2025-06-08 20:56:18.453 +03:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\bin\Debug\net8.0-windows
+[2025-06-08 20:56:18.453 +03:00 INF] : Application host built and started successfully with complete customer management integration
+[2025-06-08 20:56:18.561 +03:00 INF] : Database initialization started
+[2025-06-08 20:56:18.563 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 20:56:19.485 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=chicken;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 20:56:30.030 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 20:56:30.418 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "chicken" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:d407e521-d534-461b-84ed-4d648ca372f3
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 20:56:30.519 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 20:56:30.591 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 417
+[2025-06-08 20:56:30.659 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 417
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 423
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 66
+[2025-06-08 20:56:51.112 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 20:56:51.175 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 20:56:51.438 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 20:56:51.503 +03:00 INF] : Service configuration completed successfully with 115 services registered (complete customer management integration)
+[2025-06-08 20:56:51.572 +03:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+[2025-06-08 20:56:51.578 +03:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Production
+[2025-06-08 20:56:51.578 +03:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\bin\Debug\net8.0-windows
+[2025-06-08 20:56:51.578 +03:00 INF] : Application host built and started successfully with complete customer management integration
+[2025-06-08 20:56:51.658 +03:00 INF] : Database initialization started
+[2025-06-08 20:56:51.660 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 20:56:52.465 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=chicken;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 20:57:02.929 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 20:57:03.303 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "chicken" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:dfa3859c-99e1-406e-bbea-717294093b95
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 20:57:03.371 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 20:57:03.436 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 417
+[2025-06-08 20:57:03.503 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 417
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 423
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 66
+[2025-06-08 20:57:11.756 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 20:57:11.832 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 20:57:12.073 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 20:57:12.139 +03:00 INF] : Service configuration completed successfully with 115 services registered (complete customer management integration)
+[2025-06-08 20:57:12.206 +03:00 INF] Microsoft.Hosting.Lifetime: Application started. Press Ctrl+C to shut down.
+[2025-06-08 20:57:12.210 +03:00 INF] Microsoft.Hosting.Lifetime: Hosting environment: Production
+[2025-06-08 20:57:12.211 +03:00 INF] Microsoft.Hosting.Lifetime: Content root path: C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\bin\Debug\net8.0-windows
+[2025-06-08 20:57:12.211 +03:00 INF] : Application host built and started successfully with complete customer management integration
+[2025-06-08 20:57:12.280 +03:00 INF] : Database initialization started
+[2025-06-08 20:57:12.282 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 20:57:13.090 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=chicken;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 20:57:23.623 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 20:57:23.988 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "chicken" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:b304e809-687c-4c07-bd8a-969cefbdae8d
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 20:57:24.052 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 20:57:24.123 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 417
+[2025-06-08 20:57:24.199 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 417
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 423
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 66
+[2025-06-08 21:16:39.690 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:16:39.769 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:16:39.769 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:16:39.979 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:16:40.188 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:16:40.201 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:16:40.202 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:16:40.332 +03:00 INF] : Database initialization started
+[2025-06-08 21:16:40.338 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 21:16:41.067 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=chicken;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 21:16:51.670 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 21:16:52.048 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "chicken" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:7ec5ebee-80b3-4665-b84b-ca1fee93230f
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 21:16:52.123 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 21:16:52.190 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+[2025-06-08 21:16:52.257 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 418
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 69
+[2025-06-08 21:16:59.779 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:16:59.924 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:16:59.924 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:17:00.113 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:17:00.382 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:17:00.404 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:17:00.404 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:17:00.570 +03:00 INF] : Database initialization started
+[2025-06-08 21:17:00.581 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 21:17:02.001 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=chicken;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 21:17:12.594 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 21:17:12.994 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "chicken" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:d2410132-9c3c-41c8-b7e2-081118277089
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 21:17:13.058 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 21:17:13.123 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+[2025-06-08 21:17:13.200 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 418
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 69
+[2025-06-08 21:23:08.983 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:23:09.048 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:23:09.048 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:23:09.257 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:23:09.493 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:23:09.509 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:23:09.509 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:23:09.636 +03:00 INF] : Database initialization started
+[2025-06-08 21:23:09.642 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 21:23:10.371 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=PoultryPOS;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 21:23:20.899 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 21:23:21.281 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "PoultryPOS" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:173605f0-c057-4eb1-9b65-2c093b706df9
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 21:23:21.356 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 21:23:21.423 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+[2025-06-08 21:23:21.488 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 418
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 69
+[2025-06-08 21:24:51.005 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:24:51.094 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:24:51.094 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:24:51.204 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:24:51.317 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:24:51.329 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:24:51.330 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:24:51.421 +03:00 INF] : Database initialization started
+[2025-06-08 21:24:51.427 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 21:24:52.304 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=PoultryPOS;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 21:25:02.743 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 21:25:03.114 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection test failed: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+System.InvalidOperationException: An exception has been raised that is likely due to a transient failure. Consider enabling transient error resiliency by adding 'EnableRetryOnFailure' to the 'UseSqlServer' call.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot open database "PoultryPOS" requested by the login. The login failed.
+Login failed for user 'DESKTOP-8L810UN\Mr. Ahmad'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternalAsync(Boolean errorsExpected, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenAsync(CancellationToken cancellationToken, Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+ClientConnectionId:508f081f-f9e3-4cab-87a3-2370dd044ac1
+Error Number:4060,State:1,Class:11
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.TestConnectionAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 82
+[2025-06-08 21:25:03.186 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: Cannot connect to SQL Server. Please verify connection string and server availability.
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+[2025-06-08 21:25:03.385 +03:00 FTL] : Critical failure during database initialization
+System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+[2025-06-08 21:25:03.462 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> System.InvalidOperationException: Cannot connect to SQL Server. Please verify connection string and server availability.
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 66
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 418
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 69
+[2025-06-08 21:25:48.662 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:25:48.729 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:25:48.729 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:25:48.925 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:25:49.117 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:25:49.128 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:25:49.128 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:25:49.246 +03:00 INF] : Database initialization started
+[2025-06-08 21:25:49.252 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Starting database initialization for SQL Server...
+[2025-06-08 21:25:49.980 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Verifying SQL Server instance with connection: Server=.\posserver;Database=chicken;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+[2025-06-08 21:25:50.430 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Testing SQL Server connection...
+[2025-06-08 21:25:50.517 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: SQL Server connection successful.
+[2025-06-08 21:25:51.275 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database 'chicken' created/verified successfully.
+[2025-06-08 21:25:51.310 +03:00 INF] PoultrySlaughterPOS.Services.DatabaseInitializationService: Applying 1 pending migrations...
+[2025-06-08 21:25:51.687 +03:00 ERR] PoultrySlaughterPOS.Services.DatabaseInitializationService: Database initialization failed: There is already an object named 'AUDIT_LOGS' in the database.
+Microsoft.Data.SqlClient.SqlException (0x80131904): There is already an object named 'AUDIT_LOGS' in the database.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 55
+ClientConnectionId:43adba32-a32c-47e2-8501-893f52aa8d1b
+Error Number:2714,State:6,Class:16
+[2025-06-08 21:25:51.805 +03:00 FTL] : Critical failure during database initialization
+Microsoft.Data.SqlClient.SqlException (0x80131904): There is already an object named 'AUDIT_LOGS' in the database.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 55
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+ClientConnectionId:43adba32-a32c-47e2-8501-893f52aa8d1b
+Error Number:2714,State:6,Class:16
+[2025-06-08 21:25:51.877 +03:00 FTL] : === CRITICAL FAILURE DURING APPLICATION STARTUP ===
+System.ApplicationException: Database initialization failed. Please check the connection string and ensure SQL Server is running.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): There is already an object named 'AUDIT_LOGS' in the database.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.DatabaseInitializationService.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\DatabaseInitializationService.cs:line 55
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 412
+ClientConnectionId:43adba32-a32c-47e2-8501-893f52aa8d1b
+Error Number:2714,State:6,Class:16
+   --- End of inner exception stack trace ---
+   at PoultrySlaughterPOS.App.InitializeDatabaseAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 418
+   at PoultrySlaughterPOS.App.OnStartup(StartupEventArgs e) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\App.xaml.cs:line 69
+[2025-06-08 21:28:36.642 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:28:36.728 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:28:36.728 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:28:36.912 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:28:37.114 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:28:37.124 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:28:37.124 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:28:37.913 +03:00 INF] : SQL Server retry strategy disabled to support explicit transactions
+[2025-06-08 21:28:39.569 +03:00 WRN] Microsoft.EntityFrameworkCore.Query: The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+[2025-06-08 21:28:39.584 +03:00 INF] PoultrySlaughterPOS.MainWindow: MainWindow initialized successfully with complete customer management support
+[2025-06-08 21:28:39.808 +03:00 INF] : SQL Server retry strategy disabled to support explicit transactions
+[2025-06-08 21:28:40.222 +03:00 ERR] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'PoultrySlaughterPOS.Data.PoultryDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-06-08 21:28:40.421 +03:00 ERR] PoultrySlaughterPOS.Services.Repositories.CustomerRepository: Error retrieving debt summary
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetDebtSummaryAsync(CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 177
+[2025-06-08 21:28:40.551 +03:00 INF] PoultrySlaughterPOS.MainWindow: MainWindow loaded successfully
+[2025-06-08 21:28:40.561 +03:00 INF] : Main window created and displayed successfully
+[2025-06-08 21:28:40.561 +03:00 INF] : === Poultry Slaughter POS Application Started Successfully ===
+[2025-06-08 21:28:40.578 +03:00 INF] PoultrySlaughterPOS.MainWindow: Dashboard statistics loaded successfully - Trucks: 3, Customers: 3, Invoices: 0, Debt: ¤0.00
+[2025-06-08 21:28:40.626 +03:00 ERR] PoultrySlaughterPOS.MainWindow: Error loading dashboard statistics
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetDebtSummaryAsync(CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 177
+   at PoultrySlaughterPOS.MainWindow.LoadDashboardStatisticsAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\MainWindow.xaml.cs:line 527
+[2025-06-08 21:28:40.628 +03:00 WRN] PoultrySlaughterPOS.MainWindow: Status message (Error): خطأ في تحميل إحصائيات النظام
+[2025-06-08 21:28:40.628 +03:00 INF] PoultrySlaughterPOS.MainWindow: Initial dashboard loaded successfully
+[2025-06-08 21:29:24.485 +03:00 INF] PoultrySlaughterPOS.MainWindow: Application closing initiated - performing comprehensive cleanup
+[2025-06-08 21:29:24.487 +03:00 INF] PoultrySlaughterPOS.MainWindow: Starting comprehensive resource cleanup
+[2025-06-08 21:29:24.487 +03:00 INF] PoultrySlaughterPOS.MainWindow: Resource cleanup completed successfully
+[2025-06-08 21:29:24.488 +03:00 INF] PoultrySlaughterPOS.MainWindow: Application cleanup completed successfully
+[2025-06-08 21:29:24.608 +03:00 INF] : === Poultry Slaughter POS Application Shutdown Initiated ===
+[2025-06-08 21:29:24.618 +03:00 INF] : === Poultry Slaughter POS Application Shutdown Completed ===
+[2025-06-08 21:35:07.191 +03:00 INF] : Serilog logging infrastructure configured successfully
+[2025-06-08 21:35:07.268 +03:00 INF] : === Poultry Slaughter POS Application Starting ===
+[2025-06-08 21:35:07.268 +03:00 INF] : Startup initiated with complete customer management integration
+[2025-06-08 21:35:07.387 +03:00 INF] : Database configuration - UseExplicitTransactions: true, EnableRetryOnFailure: false
+[2025-06-08 21:35:07.496 +03:00 INF] : Service configuration completed successfully with 71 services registered (complete customer management integration)
+[2025-06-08 21:35:07.508 +03:00 INF] : Service registration completed - 71 services configured
+[2025-06-08 21:35:07.508 +03:00 INF] : Service provider configured successfully
+[2025-06-08 21:35:08.254 +03:00 INF] : SQL Server retry strategy disabled to support explicit transactions
+[2025-06-08 21:35:09.928 +03:00 WRN] Microsoft.EntityFrameworkCore.Query: The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+[2025-06-08 21:35:09.944 +03:00 INF] PoultrySlaughterPOS.MainWindow: MainWindow initialized successfully with complete customer management support
+[2025-06-08 21:35:10.161 +03:00 INF] : SQL Server retry strategy disabled to support explicit transactions
+[2025-06-08 21:35:10.534 +03:00 ERR] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'PoultrySlaughterPOS.Data.PoultryDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-06-08 21:35:10.715 +03:00 ERR] PoultrySlaughterPOS.Services.Repositories.CustomerRepository: Error retrieving debt summary
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetDebtSummaryAsync(CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 177
+[2025-06-08 21:35:10.822 +03:00 INF] PoultrySlaughterPOS.MainWindow: MainWindow loaded successfully
+[2025-06-08 21:35:10.832 +03:00 INF] : Main window created and displayed successfully
+[2025-06-08 21:35:10.832 +03:00 INF] : === Poultry Slaughter POS Application Started Successfully ===
+[2025-06-08 21:35:10.850 +03:00 INF] PoultrySlaughterPOS.MainWindow: Dashboard statistics loaded successfully - Trucks: 3, Customers: 3, Invoices: 0, Debt: ¤0.00
+[2025-06-08 21:35:10.897 +03:00 ERR] PoultrySlaughterPOS.MainWindow: Error loading dashboard statistics
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetDebtSummaryAsync(CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 177
+   at PoultrySlaughterPOS.MainWindow.LoadDashboardStatisticsAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\MainWindow.xaml.cs:line 527
+[2025-06-08 21:35:10.900 +03:00 WRN] PoultrySlaughterPOS.MainWindow: Status message (Error): خطأ في تحميل إحصائيات النظام
+[2025-06-08 21:35:10.900 +03:00 INF] PoultrySlaughterPOS.MainWindow: Initial dashboard loaded successfully
+[2025-06-08 21:35:16.111 +03:00 INF] PoultrySlaughterPOS.MainWindow: Successfully navigated to Dashboard
+[2025-06-08 21:35:17.484 +03:00 INF] : SQL Server retry strategy disabled to support explicit transactions
+[2025-06-08 21:35:17.518 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: TruckLoadingViewModel initialized with enhanced save functionality and debugging capabilities
+[2025-06-08 21:35:17.518 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: TruckLoadingViewModel initialized with enhanced save functionality and debugging capabilities
+[2025-06-08 21:35:17.584 +03:00 INF] PoultrySlaughterPOS.Views.TruckLoadingView: TruckLoadingView ViewModel set successfully
+[2025-06-08 21:35:17.584 +03:00 INF] PoultrySlaughterPOS.MainWindow: Truck Loading view created and configured successfully
+[2025-06-08 21:35:17.585 +03:00 INF] PoultrySlaughterPOS.Views.TruckLoadingView: TruckLoadingView async initialization started
+[2025-06-08 21:35:17.586 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Initializing TruckLoadingViewModel with enhanced save capabilities
+[2025-06-08 21:35:17.590 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Retrieving available trucks for loading
+[2025-06-08 21:35:17.953 +03:00 INF] PoultrySlaughterPOS.Views.TruckLoadingView: TruckLoadingView loaded, initializing ViewModel with save functionality
+[2025-06-08 21:35:17.953 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Initializing TruckLoadingViewModel with enhanced save capabilities
+[2025-06-08 21:35:17.953 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Retrieving available trucks for loading
+[2025-06-08 21:35:18.398 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Found 3 available trucks for loading
+[2025-06-08 21:35:18.564 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Found 3 available trucks for loading
+[2025-06-08 21:35:18.634 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Truck loading data loaded successfully in 680ms
+[2025-06-08 21:35:18.635 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: TruckLoadingViewModel initialized successfully
+[2025-06-08 21:35:18.635 +03:00 INF] PoultrySlaughterPOS.Views.TruckLoadingView: TruckLoadingView async initialization completed successfully
+[2025-06-08 21:35:18.636 +03:00 INF] PoultrySlaughterPOS.MainWindow: Successfully navigated to TruckLoading
+[2025-06-08 21:35:18.716 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Truck loading data loaded successfully in 680ms
+[2025-06-08 21:35:18.716 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: TruckLoadingViewModel initialized successfully
+[2025-06-08 21:35:18.716 +03:00 INF] PoultrySlaughterPOS.Views.TruckLoadingView: TruckLoadingView initialization completed successfully in 762ms
+[2025-06-08 21:35:27.017 +03:00 WRN] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Validation failed with 2 errors: الوزن يجب أن يكون بين 0.01 و 10000 كيلو, عدد الأقفاص يجب أن يكون بين 1 و 1000
+[2025-06-08 21:35:29.476 +03:00 WRN] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Validation failed with 1 errors: عدد الأقفاص يجب أن يكون بين 1 و 1000
+[2025-06-08 21:35:29.922 +03:00 WRN] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Validation failed with 1 errors: عدد الأقفاص يجب أن يكون بين 1 و 1000
+[2025-06-08 21:35:30.093 +03:00 WRN] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Validation failed with 1 errors: عدد الأقفاص يجب أن يكون بين 1 و 1000
+[2025-06-08 21:35:30.238 +03:00 WRN] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Validation failed with 1 errors: عدد الأقفاص يجب أن يكون بين 1 و 1000
+[2025-06-08 21:35:33.172 +03:00 WRN] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Validation failed with 1 errors: متوسط وزن القفص (500.00 كيلو) غير طبيعي. يجب أن يكون بين 5 و 100 كيلو
+[2025-06-08 21:35:39.731 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Starting truck load save operation for truck 1 with weight 1000kg and 23 cages
+[2025-06-08 21:35:39.824 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Creating truck load for truck 1 with weight 1000 and 23 cages
+[2025-06-08 21:35:40.171 +03:00 WRN] Microsoft.EntityFrameworkCore.Database.Transaction: Savepoints are disabled because Multiple Active Result Sets (MARS) is enabled. If 'SaveChanges' fails, then the transaction cannot be automatically rolled back to a known clean state. Instead, the transaction should be rolled back by the application before retrying 'SaveChanges'. See https://go.microsoft.com/fwlink/?linkid=2149338 for more information and examples. To identify the code which triggers this warning, call 'ConfigureWarnings(w => w.Throw(SqlServerEventId.SavepointsDisabledBecauseOfMARS))'.
+[2025-06-08 21:35:40.210 +03:00 INF] PoultrySlaughterPOS.Services.Repositories.UnitOfWork: Successfully saved 2 changes to database for user SYSTEM
+[2025-06-08 21:35:40.219 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Successfully created truck load 1 for truck 1
+[2025-06-08 21:35:40.220 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Truck load saved successfully with ID 1 in 488ms
+[2025-06-08 21:35:40.333 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Retrieving available trucks for loading
+[2025-06-08 21:35:40.491 +03:00 INF] PoultrySlaughterPOS.Services.TruckLoadingService: Found 2 available trucks for loading
+[2025-06-08 21:35:40.507 +03:00 INF] PoultrySlaughterPOS.ViewModels.TruckLoadingViewModel: Success message displayed: تم حفظ تحميل الشاحنة بنجاح - رقم العملية: 1
+[2025-06-08 21:35:44.728 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: POSViewModel initialized with invoice search and edit capabilities
+[2025-06-08 21:35:44.728 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: POSViewModel initialized with invoice search and edit capabilities
+[2025-06-08 21:35:44.776 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Enhanced POSView initialized successfully with search and edit capabilities
+[2025-06-08 21:35:44.776 +03:00 INF] PoultrySlaughterPOS.Views.POSView: POSView ViewModel set successfully
+[2025-06-08 21:35:44.776 +03:00 INF] PoultrySlaughterPOS.MainWindow: POS view created and configured successfully
+[2025-06-08 21:35:44.781 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Initializing enhanced POSView with comprehensive data loading and search capabilities
+[2025-06-08 21:35:44.933 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Initializing enhanced POSView with comprehensive data loading and search capabilities
+[2025-06-08 21:35:44.939 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Loaded 3 active customers
+[2025-06-08 21:35:44.975 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Loaded 3 active trucks
+[2025-06-08 21:35:45.026 +03:00 INF] PoultrySlaughterPOS.Repositories.InvoiceRepository: Generated optimized invoice number: 202506080001
+[2025-06-08 21:35:45.031 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Real invoice number generated and set: 202506080001
+[2025-06-08 21:35:45.031 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: POSViewModel initialized successfully with search and edit capabilities
+[2025-06-08 21:35:45.034 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Enhanced POSView initialization completed successfully
+[2025-06-08 21:35:45.034 +03:00 INF] PoultrySlaughterPOS.Views.POSView: POSView async initialization completed successfully
+[2025-06-08 21:35:45.034 +03:00 INF] PoultrySlaughterPOS.MainWindow: Successfully navigated to POSSales
+[2025-06-08 21:35:45.035 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Loaded 3 active customers
+[2025-06-08 21:35:45.094 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Loaded 3 active trucks
+[2025-06-08 21:35:45.132 +03:00 INF] PoultrySlaughterPOS.Repositories.InvoiceRepository: Generated optimized invoice number: 202506080001
+[2025-06-08 21:35:45.133 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Real invoice number generated and set: 202506080001
+[2025-06-08 21:35:45.138 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: POSViewModel initialized successfully with search and edit capabilities
+[2025-06-08 21:35:45.138 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Enhanced POSView initialization completed successfully
+[2025-06-08 21:35:45.141 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Applying emergency TextBox visibility fix
+[2025-06-08 21:35:45.159 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Emergency TextBox visibility fix applied successfully
+[2025-06-08 21:35:45.159 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Applying emergency TextBox visibility fix
+[2025-06-08 21:35:45.175 +03:00 INF] PoultrySlaughterPOS.Views.POSView: Emergency TextBox visibility fix applied successfully
+[2025-06-08 21:35:50.920 +03:00 INF] PoultrySlaughterPOS.MainWindow: Transaction History navigation attempted - feature under development
+[2025-06-08 21:53:16.212 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: Executing SaveInvoice with payment processing
+[2025-06-08 21:53:16.220 +03:00 INF] PoultrySlaughterPOS.Services.TransactionProcessingService: Processing transaction with payment for customer 1, Invoice amount: ¤24.00, Payment: ¤240.00
+[2025-06-08 21:53:16.474 +03:00 INF] PoultrySlaughterPOS.Repositories.InvoiceRepository: Successfully created invoice 202506080001 for customer 1 with amount 24.00
+[2025-06-08 21:53:16.593 +03:00 INF] PoultrySlaughterPOS.Services.Repositories.Implementations.PaymentRepository: Successfully processed payment of 24.00 for customer 1. New balance: 0
+[2025-06-08 21:53:16.649 +03:00 WRN] PoultrySlaughterPOS.Services.Repositories.Implementations.PaymentRepository: Payment amount 216.00 exceeds customer 1 debt 0.00. Processing as overpayment.
+[2025-06-08 21:53:16.695 +03:00 INF] PoultrySlaughterPOS.Services.Repositories.Implementations.PaymentRepository: Successfully processed payment of 216.00 for customer 1. New balance: 0
+[2025-06-08 21:53:16.701 +03:00 INF] PoultrySlaughterPOS.Services.TransactionProcessingService: Transaction processed successfully. Invoice: 202506080001, Payment: ¤240.00, Remaining: ¤0.00
+[2025-06-08 21:53:22.147 +03:00 INF] PoultrySlaughterPOS.Repositories.InvoiceRepository: Generated optimized invoice number: 202506080002
+[2025-06-08 21:55:12.306 +03:00 INF] PoultrySlaughterPOS.MainWindow: Application closing initiated - performing comprehensive cleanup
+[2025-06-08 21:55:12.307 +03:00 INF] PoultrySlaughterPOS.MainWindow: Starting comprehensive resource cleanup
+[2025-06-08 21:55:12.323 +03:00 INF] PoultrySlaughterPOS.ViewModels.POSViewModel: POSViewModel cleanup completed successfully
+[2025-06-08 21:55:12.332 +03:00 INF] PoultrySlaughterPOS.MainWindow: Resource cleanup completed successfully
+[2025-06-08 21:55:12.333 +03:00 INF] PoultrySlaughterPOS.MainWindow: Application cleanup completed successfully
+[2025-06-08 21:55:12.373 +03:00 INF] : === Poultry Slaughter POS Application Shutdown Initiated ===
+[2025-06-08 21:55:12.376 +03:00 INF] : === Poultry Slaughter POS Application Shutdown Completed ===

@@ -1,23 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PoultrySlaughterPOS.Controls;
 using PoultrySlaughterPOS.Data;
+using PoultrySlaughterPOS.Extensions;
+using PoultrySlaughterPOS.Repositories;
 using PoultrySlaughterPOS.Services;
 using PoultrySlaughterPOS.Services.Repositories;
 using PoultrySlaughterPOS.Services.Repositories.Implementations;
 using PoultrySlaughterPOS.ViewModels;
 using PoultrySlaughterPOS.Views;
 using PoultrySlaughterPOS.Views.Dialogs;
-using PoultrySlaughterPOS.Controls;
-using PoultrySlaughterPOS.Extensions;
 using Serilog;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using PoultrySlaughterPOS.Repositories;
 
 namespace PoultrySlaughterPOS
 {
@@ -33,10 +32,12 @@ namespace PoultrySlaughterPOS
     {
         #region Private Fields
 
-        private IHost? _host;
+        private ServiceProvider? _serviceProvider;
         private readonly object _lockObject = new object();
 
         #endregion
+
+
 
         #region Application Lifecycle
 
@@ -56,14 +57,16 @@ namespace PoultrySlaughterPOS
                 // Build comprehensive configuration system
                 var configuration = BuildConfiguration();
 
-                // Configure and build host with complete service registration
-                _host = await BuildHostAsync(configuration);
+                // Configure and build service provider with complete service registration
+                _serviceProvider = BuildServiceProvider(configuration);
 
                 // CRITICAL: Configure Services property for application-wide DI access
-                this.ConfigureServiceProvider(_host);
+                this.ConfigureServiceProvider(_serviceProvider);
+
+                Log.Information("Service provider configured successfully");
 
                 // Initialize database with enhanced error handling
-                await InitializeDatabaseAsync();
+            //    await InitializeDatabaseAsync();
 
                 // Create and display main window through dependency injection
                 await ShowMainWindowAsync();
@@ -85,13 +88,6 @@ namespace PoultrySlaughterPOS
             try
             {
                 Log.Information("=== Poultry Slaughter POS Application Shutdown Initiated ===");
-
-                if (_host != null)
-                {
-                    await _host.StopAsync(TimeSpan.FromSeconds(10));
-                    _host.Dispose();
-                    Log.Information("Application host stopped and disposed successfully");
-                }
 
                 // Dispose service provider to prevent resource leaks
                 this.DisposeServiceProvider();
@@ -145,6 +141,8 @@ namespace PoultrySlaughterPOS
                 .Enrich.WithMachineName()
                 .Enrich.WithEnvironmentName()
                 .CreateLogger();
+
+            Log.Information("Serilog logging infrastructure configured successfully");
         }
 
         /// <summary>
@@ -163,22 +161,18 @@ namespace PoultrySlaughterPOS
         }
 
         /// <summary>
-        /// Builds application host with comprehensive service registration
+        /// Builds service provider with comprehensive service registration
         /// </summary>
-        private static async Task<IHost> BuildHostAsync(IConfiguration configuration)
+        private static ServiceProvider BuildServiceProvider(IConfiguration configuration)
         {
-            var host = Host.CreateDefaultBuilder()
-                .UseSerilog()
-                .ConfigureServices((context, services) =>
-                {
-                    ConfigureAllServices(services, configuration);
-                })
-                .Build();
+            var services = new ServiceCollection();
 
-            await host.StartAsync();
-            Log.Information("Application host built and started successfully with complete customer management integration");
+            ConfigureAllServices(services, configuration);
 
-            return host;
+            var serviceProvider = services.BuildServiceProvider();
+            Log.Information("Service registration completed - {ServiceCount} services configured", services.Count);
+
+            return serviceProvider;
         }
 
         #endregion
@@ -259,6 +253,7 @@ namespace PoultrySlaughterPOS
             services.AddScoped<IDailyReconciliationRepository, DailyReconciliationRepository>();
             services.AddScoped<IAuditLogRepository, AuditLogRepository>();
             services.AddScoped<ITransactionProcessingService, TransactionProcessingService>();
+
             // Unit of Work pattern implementation
             services.AddScoped<IUnitOfWork>(serviceProvider =>
             {
@@ -410,7 +405,7 @@ namespace PoultrySlaughterPOS
         {
             try
             {
-                using var scope = Services.CreateScope();
+                using var scope = this.CreateScope();
                 var dbInitService = scope.ServiceProvider.GetRequiredService<IDatabaseInitializationService>();
 
                 Log.Information("Database initialization started");
@@ -431,7 +426,7 @@ namespace PoultrySlaughterPOS
         {
             try
             {
-                var mainWindow = Services.GetRequiredService<MainWindow>();
+                var mainWindow = this.GetRequiredService<MainWindow>();
 
                 // Set as main window for proper application lifecycle
                 MainWindow = mainWindow;
@@ -476,7 +471,7 @@ namespace PoultrySlaughterPOS
             // Ensure proper cleanup
             try
             {
-                _host?.Dispose();
+                _serviceProvider?.Dispose();
             }
             catch (Exception cleanupEx)
             {
