@@ -266,7 +266,6 @@ namespace PoultrySlaughterPOS
 
             Log.Debug("Repository layer configured with comprehensive data access patterns");
         }
-
         /// <summary>
         /// Configures business logic services with enterprise patterns
         /// </summary>
@@ -277,14 +276,17 @@ namespace PoultrySlaughterPOS
             services.AddScoped<ITruckLoadingService, TruckLoadingService>();
             services.AddScoped<IPOSService, POSService>();
 
+            // ADDED: Export and Printing services to resolve CS0246 errors
+            services.AddScoped<IExportService, Services.Implementations.ExportService>();
+            services.AddScoped<IPrintingService, Services.Implementations.PrintingService>();
+
             // Customer management business services (future expansion)
             // services.AddScoped<ICustomerService, CustomerService>();
             // services.AddScoped<IPaymentService, PaymentService>();
             // services.AddScoped<IDebtManagementService, DebtManagementService>();
 
-            Log.Debug("Business logic layer configured with comprehensive service patterns");
+            Log.Debug("Business logic layer configured with comprehensive service patterns including Export and Printing services");
         }
-
         /// <summary>
         /// Configures presentation layer with complete customer management integration
         /// </summary>
