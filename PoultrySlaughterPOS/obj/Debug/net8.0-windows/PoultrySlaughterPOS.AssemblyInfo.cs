@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PoultrySlaughterPOS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+805a930e53531052d71ac4788d83ecd2a2ac9ac8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e2bee16818dcee229bca0a035619c8c3e4e8f74")]
 [assembly: System.Reflection.AssemblyProductAttribute("PoultrySlaughterPOS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PoultrySlaughterPOS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

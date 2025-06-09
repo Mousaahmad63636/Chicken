@@ -139,7 +139,8 @@ namespace PoultrySlaughterPOS.Views
                 if (_viewModel != null)
                 {
                     _viewModel.PropertyChanged -= ViewModel_PropertyChanged;
-                    _viewModel.Cleanup();
+                    // Note: TruckManagementViewModel doesn't have a Cleanup method
+                    // Any additional cleanup can be added here if needed
                 }
                 _isInitialized = false;
                 _logger.LogDebug("TruckManagementView cleanup completed");
@@ -224,9 +225,11 @@ namespace PoultrySlaughterPOS.Views
         {
             try
             {
-                if (e.Key == Key.Enter && _viewModel?.ApplyFiltersCommand?.CanExecute(null) == true)
+                if (e.Key == Key.Enter && _viewModel?.ClearFiltersCommand?.CanExecute(null) == true)
                 {
-                    _viewModel.ApplyFiltersCommand.Execute(null);
+                    // The search is automatically triggered by SearchText property binding
+                    // We can optionally trigger a manual refresh here
+                    _viewModel.RefreshDataCommand?.Execute(null);
                     _logger.LogDebug("Search filter applied via Enter key");
                 }
                 else if (e.Key == Key.Escape)
@@ -302,17 +305,17 @@ namespace PoultrySlaughterPOS.Views
 
                 // Ctrl+N - Add new truck (when not in edit mode)
                 var addGesture = new KeyGesture(Key.N, ModifierKeys.Control);
-                var addBinding = new KeyBinding(_viewModel?.AddTruckCommand, addGesture);
+                var addBinding = new KeyBinding(_viewModel?.CreateTruckCommand, addGesture);
                 this.InputBindings.Add(addBinding);
 
                 // Ctrl+S - Save (when in edit mode or adding)
                 var saveGesture = new KeyGesture(Key.S, ModifierKeys.Control);
-                var saveBinding = new KeyBinding(_viewModel?.AddTruckCommand, saveGesture); // This should be conditional
+                var saveBinding = new KeyBinding(_viewModel?.CreateTruckCommand, saveGesture); // This should be conditional
                 this.InputBindings.Add(saveBinding);
 
                 // Escape - Cancel edit
                 var cancelGesture = new KeyGesture(Key.Escape);
-                var cancelBinding = new KeyBinding(_viewModel?.CancelEditCommand, cancelGesture);
+                var cancelBinding = new KeyBinding(_viewModel?.CancelOperationCommand, cancelGesture);
                 this.InputBindings.Add(cancelBinding);
 
                 _logger.LogDebug("Keyboard shortcuts configured successfully");
@@ -453,7 +456,7 @@ namespace PoultrySlaughterPOS.Views
                 }
                 else
                 {
-                    _viewModel.AddTruckCommand?.Execute(null);
+                    _viewModel.CreateTruckCommand?.Execute(null);
                 }
             }
             catch (Exception ex)

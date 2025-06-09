@@ -16,5 +16,5 @@ C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\App.xaml
 297-824706989
 Controls\AccountStatementControl.xaml;Controls\CustomerDetailsControl.xaml;Controls\CustomerListControl.xaml;Controls\DebtManagementControl.xaml;Controls\PaymentHistoryControl.xaml;Controls\TruckSelectionControl.xaml;Controls\ValidationSummaryControl.xaml;Controls\WeightInputControl.xaml;MainWindow.xaml;Views\CustomerAccountsView.xaml;Views\Dialogs\AddCustomerDialog.xaml;Views\Dialogs\PaymentDialog.xaml;Views\POSView.xaml;Views\TransactionHistoryView.xaml;Views\TruckLoadingView.xaml;Views\TruckManagementView.xaml;
 
-True
+False
 
