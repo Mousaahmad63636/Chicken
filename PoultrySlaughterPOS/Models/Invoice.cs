@@ -26,6 +26,8 @@ namespace PoultrySlaughterPOS.Models
         public decimal FinalAmount { get; set; }
         public decimal PreviousBalance { get; set; }
         public decimal CurrentBalance { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime UpdatedDate { get; set; } = DateTime.Now;
 
         // Navigation properties
         public virtual Customer Customer { get; set; } = null!;

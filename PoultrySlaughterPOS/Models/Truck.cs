@@ -20,5 +20,7 @@ namespace PoultrySlaughterPOS.Models
 
         // Navigation properties
         public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+        public virtual ICollection<TruckLoad> TruckLoads { get; set; } = new List<TruckLoad>();
+        public virtual ICollection<DailyReconciliation> DailyReconciliations { get; set; } = new List<DailyReconciliation>();
     }
 }

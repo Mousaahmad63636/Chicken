@@ -5,8 +5,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PoultrySlaughterPOS.Data;
 using PoultrySlaughterPOS.Services;
+using PoultrySlaughterPOS.Services.Repositories;
+using PoultrySlaughterPOS.Services.Repositories.Implementations;
+using PoultrySlaughterPOS.Repositories;
+using PoultrySlaughterPOS.ViewModels;
+using PoultrySlaughterPOS.Extensions;
 using System.IO;
 using System.Windows;
+using PoultrySlaughterPOS.Services.Repositories.Interfaces;
 
 namespace PoultrySlaughterPOS
 {
@@ -20,6 +26,9 @@ namespace PoultrySlaughterPOS
             {
                 // Create host with dependency injection
                 _host = CreateHost();
+
+                // Configure application extensions
+                this.ConfigureServiceProvider(_host);
 
                 // Start the host
                 await _host.StartAsync();
@@ -48,6 +57,7 @@ namespace PoultrySlaughterPOS
                 await _host.StopAsync();
                 _host.Dispose();
             }
+            this.DisposeServiceProvider();
             base.OnExit(e);
         }
 
@@ -70,15 +80,55 @@ namespace PoultrySlaughterPOS
                         builder.AddDebug();
                     });
 
-                    // Add Entity Framework
-                    services.AddDbContext<PoultryDbContext>(options =>
+                    // Add Entity Framework - DbContextFactory for thread-safe operations
+                    services.AddDbContextFactory<PoultryDbContext>(options =>
                         options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-                    // Add services
-                    services.AddScoped<IDatabaseService, DatabaseService>();
+                    // Add scoped DbContext for repositories that need direct DbContext access
+                    services.AddScoped<PoultryDbContext>(provider =>
+                    {
+                        var factory = provider.GetRequiredService<IDbContextFactory<PoultryDbContext>>();
+                        return factory.CreateDbContext();
+                    });
 
-                    // Add windows
+                    // Register Repository Pattern Services
+                    services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+                    // Register Individual Repositories with correct constructor patterns
+                    // Repositories using PoultryDbContext directly:
+                    services.AddScoped<ICustomerRepository, PoultrySlaughterPOS.Services.Repositories.CustomerRepository>();
+                    services.AddScoped<ITruckLoadRepository, PoultrySlaughterPOS.Services.Repositories.TruckLoadRepository>();
+                    services.AddScoped<IDailyReconciliationRepository, PoultrySlaughterPOS.Services.Repositories.DailyReconciliationRepository>();
+                    services.AddScoped<IAuditLogRepository, PoultrySlaughterPOS.Services.Repositories.AuditLogRepository>();
+
+                    // Repositories using IDbContextFactory:
+                    services.AddScoped<ITruckRepository, PoultrySlaughterPOS.Repositories.TruckRepository>();
+                    services.AddScoped<IInvoiceRepository, PoultrySlaughterPOS.Repositories.InvoiceRepository>();
+                    services.AddScoped<IPaymentRepository, PoultrySlaughterPOS.Services.Repositories.Implementations.PaymentRepository>();
+
+                    // Register Business Services
+                    services.AddScoped<IDatabaseService, DatabaseService>();
+                    services.AddScoped<IDatabaseInitializationService, DatabaseInitializationService>();
+                    services.AddScoped<IErrorHandlingService, SimpleErrorHandlingService>();
+                    services.AddScoped<IPOSService, POSService>();
+                    services.AddScoped<ITransactionProcessingService, TransactionProcessingService>();
+                    services.AddScoped<ITruckLoadingService, TruckLoadingService>();
+
+                    // Register ViewModels - let DI container resolve dependencies
+                    services.AddTransient<POSViewModel>();
+                    services.AddTransient<CustomerAccountsViewModel>();
+                    services.AddTransient<TruckLoadingViewModel>();
+                    services.AddTransient<TransactionHistoryViewModel>();
+                    services.AddTransient<DailyReconciliationViewModel>();
+                    services.AddTransient<AddCustomerDialogViewModel>();
+                    services.AddTransient<PaymentDialogViewModel>();
+
+                    // Register Windows and Views
                     services.AddTransient<MainWindow>();
+
+                    // Register additional services as needed
+                    // services.AddSingleton<IDialogService, DialogService>();
+                    // services.AddSingleton<IMessageBoxService, MessageBoxService>();
                 })
                 .Build();
         }
@@ -87,26 +137,19 @@ namespace PoultrySlaughterPOS
         {
             try
             {
-                var databaseService = _host!.Services.GetRequiredService<IDatabaseService>();
+                var databaseService = _host!.Services.GetRequiredService<IDatabaseInitializationService>();
                 var logger = _host.Services.GetRequiredService<ILogger<App>>();
 
                 logger.LogInformation("Starting database initialization...");
 
-                var success = await databaseService.InitializeDatabaseAsync();
-
-                if (success)
-                {
-                    logger.LogInformation("Database initialization completed successfully.");
-                }
-                else
-                {
-                    logger.LogError("Database initialization failed.");
-                    MessageBox.Show("Database initialization failed. Please check your SQL Server Express installation.",
-                        "Database Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                await databaseService.InitializeAsync();
+                logger.LogInformation("Database initialization completed successfully.");
             }
             catch (Exception ex)
             {
+                var logger = _host?.Services.GetService<ILogger<App>>();
+                logger?.LogError(ex, "Database initialization failed: {Message}", ex.Message);
+
                 MessageBox.Show($"Database initialization error: {ex.Message}", "Database Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }

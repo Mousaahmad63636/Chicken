@@ -13,6 +13,9 @@ namespace PoultrySlaughterPOS.Data
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<TruckLoad> TruckLoads { get; set; }
+        public DbSet<DailyReconciliation> DailyReconciliations { get; set; }
+        public DbSet<AuditLog> AuditLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -80,22 +83,42 @@ namespace PoultrySlaughterPOS.Data
                       .OnDelete(DeleteBehavior.SetNull);
             });
 
-            // Seed data
-            SeedInitialData(modelBuilder);
-        }
+            // TruckLoad configuration
+            modelBuilder.Entity<TruckLoad>(entity =>
+            {
+                entity.HasKey(e => e.LoadId);
+                entity.Property(e => e.TotalWeight).HasPrecision(10, 2);
 
-        private void SeedInitialData(ModelBuilder modelBuilder)
-        {
-            // Seed some initial trucks
-            modelBuilder.Entity<Truck>().HasData(
-                new Truck { TruckId = 1, TruckNumber = "T001", DriverName = "Driver 1", CreatedDate = DateTime.Now },
-                new Truck { TruckId = 2, TruckNumber = "T002", DriverName = "Driver 2", CreatedDate = DateTime.Now }
-            );
+                // Relationships
+                entity.HasOne(e => e.Truck)
+                      .WithMany(t => t.TruckLoads)
+                      .HasForeignKey(e => e.TruckId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
 
-            // Seed a test customer
-            modelBuilder.Entity<Customer>().HasData(
-                new Customer { CustomerId = 1, CustomerName = "Test Customer", TotalDebt = 0, CreatedDate = DateTime.Now }
-            );
+            // DailyReconciliation configuration
+            modelBuilder.Entity<DailyReconciliation>(entity =>
+            {
+                entity.HasKey(e => e.ReconciliationId);
+                entity.Property(e => e.LoadWeight).HasPrecision(10, 2);
+                entity.Property(e => e.SoldWeight).HasPrecision(10, 2);
+                entity.Property(e => e.WastageWeight).HasPrecision(10, 2);
+                entity.Property(e => e.WastagePercentage).HasPrecision(5, 2);
+
+                // Relationships
+                entity.HasOne(e => e.Truck)
+                      .WithMany(t => t.DailyReconciliations)
+                      .HasForeignKey(e => e.TruckId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // AuditLog configuration
+            modelBuilder.Entity<AuditLog>(entity =>
+            {
+                entity.HasKey(e => e.AuditId);
+                entity.HasIndex(e => e.TableName);
+                entity.HasIndex(e => e.CreatedDate);
+            });
         }
     }
 }

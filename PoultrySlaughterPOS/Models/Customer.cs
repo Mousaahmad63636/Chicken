@@ -19,6 +19,7 @@ namespace PoultrySlaughterPOS.Models
         public decimal TotalDebt { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime UpdatedDate { get; set; } = DateTime.Now;
 
         // Navigation properties
         public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();

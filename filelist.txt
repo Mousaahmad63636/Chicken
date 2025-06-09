@@ -1,0 +1,120 @@
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8
+    filelist.txt
+    PoultrySlaughterPOS.sln
+    README.md
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS
+    App.xaml
+    App.xaml.cs
+    appsettings.json
+    AssemblyInfo.cs
+    MainWindow.xaml
+    MainWindow.xaml.cs
+    PoultrySlaughterPOS.csproj
+    PoultrySlaughterPOS.csproj.user
+    README.md
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Controls
+    AccountStatementControl.xaml
+    AccountStatementControl.xaml.cs
+    CustomerDetailsControl.xaml
+    CustomerDetailsControl.xaml.cs
+    CustomerListControl.xaml
+    CustomerListControl.xaml.cs
+    DebtManagementControl.xaml
+    DebtManagementControl.xaml.cs
+    PaymentHistoryControl.xaml
+    PaymentHistoryControl.xaml.cs
+    TruckSelectionControl.xaml
+    TruckSelectionControl.xaml.cs
+    ValidationSummaryControl.xaml
+    ValidationSummaryControl.xaml.cs
+    WeightInputControl.xaml
+    WeightInputControl.xaml.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Converters
+    ValueConverters.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Data
+    DesignTimeDbContextFactory.cs
+    PoultryDbContext.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Diagnostics
+    DataGridVisibilityDiagnostics.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Extensions
+    ApplicationExtensions.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Models
+    AuditLog.cs
+    Customer.cs
+    DailyReconciliation.cs
+    Invoice.cs
+    InvoiceItem.cs
+    Payment.cs
+    ReceiptTotals.cs
+    Truck.cs
+    TruckLoad.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Services
+    DatabaseInitializationService.cs
+    DatabaseService.cs
+    ErrorHandlingService.cs
+    POSService.cs
+    TransactionProcessingService.cs
+    TruckLoadingService.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\ViewModels
+    AddCustomerDialogViewModel.cs
+    CustomerAccountsViewModel.cs
+    PaymentDialogViewModel.cs
+    POSViewModel.cs
+    TransactionHistoryViewModel.cs
+    TruckLoadingViewModel.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Views
+    CustomerAccountsView.xaml
+    CustomerAccountsView.xaml.cs
+    POSView.xaml
+    POSView.xaml.cs
+    TransactionHistoryView.xaml
+    TransactionHistoryView.xaml.cs
+    TruckLoadingView.xaml
+    TruckLoadingView.xaml.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Services\Repositories
+    IRepository.cs
+    IUnitOfWork.cs
+    Repository.cs
+    UnitOfWork.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Services\Repositories\Implementations
+    AuditLogRepository.cs
+    CustomerRepository.cs
+    DailyReconciliationRepository.cs
+    InvoiceRepository.cs
+    PaymentRepository.cs
+    TruckLoadRepository.cs
+    TruckRepository.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Services\Repositories\Interfaces
+    BaseRepository.cs
+    IBaseRepository.cs
+    IErrorHandlingService.cs
+    ITruckLoadingService.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Services\Repositories\Specific
+    IAuditLogRepository.cs
+    ICustomerRepository.cs
+    IDailyReconciliationRepository.cs
+    IInvoiceRepository.cs
+    IPaymentRepository.cs
+    ITruckLoadRepository.cs
+    ITruckRepository.cs
+
+C:\Users\Mr. Ahmad\Desktop\Chicken-9-8\PoultrySlaughterPOS\Views\Dialogs
+    AddCustomerDialog.xaml
+    AddCustomerDialog.xaml.cs
+    PaymentDialog.xaml
+    PaymentDialog.xaml.cs

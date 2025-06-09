@@ -17,6 +17,9 @@ namespace PoultrySlaughterPOS.Models
         [MaxLength(200)]
         public string? Notes { get; set; }
 
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+
         // Navigation properties
         public virtual Customer Customer { get; set; } = null!;
         public virtual Invoice? Invoice { get; set; }

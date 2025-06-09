@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using PoultrySlaughterPOS.Models;
 using PoultrySlaughterPOS.Services;
+using PoultrySlaughterPOS.Services.Repositories.Interfaces;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
