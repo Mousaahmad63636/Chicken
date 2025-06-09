@@ -5,10 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\chicken-52fcafa715f985cce12e5301554d8480de4ef024\\poultryslaughterpos\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\chicken-52fcafa715f985cce12e5301554d8480de4ef024\\poultryslaughterpos\\appsettings.json||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\appsettings.json||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,22 +24,9 @@
               "RelativeDocumentMoniker": "PoultrySlaughterPOS\\App.xaml.cs",
               "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\App.xaml.cs",
               "RelativeToolTip": "PoultrySlaughterPOS\\App.xaml.cs",
-              "ViewState": "AgIAAE8CAAAAAAAAAAAAABYBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAIwHIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T07:16:52.118Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\appsettings.json",
-              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\appsettings.json",
-              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\appsettings.json",
-              "RelativeToolTip": "PoultrySlaughterPOS\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-09T07:15:06.782Z",
+              "WhenOpened": "2025-06-09T10:35:35.921Z",
               "EditorCaption": ""
             }
           ]
