@@ -19,7 +19,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using PoultrySlaughterPOS.Services.Repositories.Interfaces;
 
 namespace PoultrySlaughterPOS.ViewModels
 {

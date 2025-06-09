@@ -13,7 +13,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows;
-using PoultrySlaughterPOS.Services.Repositories.Interfaces;
 
 namespace PoultrySlaughterPOS.ViewModels
 {

@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using PoultrySlaughterPOS.Models;
 using PoultrySlaughterPOS.Services;
 using PoultrySlaughterPOS.Services.Repositories;
-using PoultrySlaughterPOS.Services.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

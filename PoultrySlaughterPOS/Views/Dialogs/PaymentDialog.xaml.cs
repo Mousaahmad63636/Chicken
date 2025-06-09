@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using PoultrySlaughterPOS.Models;
 using PoultrySlaughterPOS.Services;
 using PoultrySlaughterPOS.Services.Repositories;
-using PoultrySlaughterPOS.Services.Repositories.Interfaces;
 using PoultrySlaughterPOS.ViewModels;
 using System;
 using System.Threading.Tasks;
