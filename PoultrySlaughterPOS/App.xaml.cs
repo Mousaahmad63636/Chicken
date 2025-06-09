@@ -88,6 +88,12 @@ namespace PoultrySlaughterPOS
                     services.AddScoped<ITransactionProcessingService, TransactionProcessingService>();
                     services.AddScoped<ITruckLoadingService, TruckLoadingService>();
 
+                    // UPDATED: Added TruckManagementViewModel registration
+                    services.AddTransient<TruckManagementViewModel>();
+
+                    // UPDATED: Added TruckManagementView registration  
+                    services.AddTransient<PoultrySlaughterPOS.Views.TruckManagementView>();
+
                     services.AddTransient<POSViewModel>();
                     services.AddTransient<CustomerAccountsViewModel>();
                     services.AddTransient<TruckLoadingViewModel>();

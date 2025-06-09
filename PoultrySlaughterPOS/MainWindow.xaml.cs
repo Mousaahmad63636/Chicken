@@ -29,6 +29,9 @@ namespace PoultrySlaughterPOS
         private DispatcherTimer? _timeUpdateTimer;
         private DispatcherTimer? _statisticsRefreshTimer;
 
+        private TruckManagementView? _truckManagementView;
+        private TruckManagementViewModel? _truckManagementViewModel;
+
         // View and ViewModel instances with complete customer management support
         private TruckLoadingView? _truckLoadingView;
         private TruckLoadingViewModel? _truckLoadingViewModel;
@@ -104,6 +107,47 @@ namespace PoultrySlaughterPOS
             }
         }
 
+        /// <summary>
+        /// Handles truck management navigation with comprehensive fleet management integration
+        /// </summary>
+        private async void TruckManagement_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isNavigating) return;
+
+            try
+            {
+                await NavigateToViewAsync("TruckManagement", async () =>
+                {
+                    UpdateStatusMessage("جاري تحميل صفحة إدارة الشاحنات...");
+
+                    // Create or reuse truck management view
+                    if (_truckManagementView == null)
+                    {
+                        _truckManagementViewModel = _serviceProvider.GetRequiredService<TruckManagementViewModel>();
+                        _truckManagementView = _serviceProvider.GetRequiredService<TruckManagementView>();
+                        _truckManagementView.SetViewModel(_truckManagementViewModel);
+
+                        _logger.LogInformation("Truck Management view created and configured successfully");
+                    }
+
+                    // Set content and initialize
+                    DynamicContentPresenter.Content = _truckManagementView;
+                    DynamicContentPresenter.Visibility = Visibility.Visible;
+
+                    if (_truckManagementView != null)
+                    {
+                        await _truckManagementView.InitializeAsync();
+                    }
+
+                    UpdateStatusMessage("صفحة إدارة الشاحنات جاهزة");
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error navigating to Truck Management view");
+                HandleNavigationError("إدارة الشاحنات", ex);
+            }
+        }
         /// <summary>
         /// Initializes comprehensive event handlers for window lifecycle
         /// </summary>

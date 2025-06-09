@@ -171,6 +171,12 @@
                         </StackPanel>
                     </Button>
 
+                    <Button Style="{StaticResource NavButtonStyle}" Click="TruckManagement_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Cogs" Width="20" Height="20" Margin="0,0,10,0"/>
+                            <TextBlock Text="إدارة الشاحنات" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                     <!-- Reconciliation Button -->
                     <Button Style="{StaticResource NavButtonStyle}" Click="Reconciliation_Click">
                         <StackPanel Orientation="Horizontal">
