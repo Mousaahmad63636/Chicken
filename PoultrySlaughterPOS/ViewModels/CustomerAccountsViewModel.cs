@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿// PoultrySlaughterPOS/ViewModels/CustomerAccountsViewModel.cs
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,15 @@ using System.Windows.Data;
 
 namespace PoultrySlaughterPOS.ViewModels
 {
+    /// <summary>
+    /// Enterprise-grade Customer Accounts ViewModel implementing comprehensive customer management,
+    /// financial tracking, debt analysis, and business intelligence for poultry slaughter operations.
+    /// ENHANCED: Complete debt settlement integration with advanced payment processing capabilities,
+    /// real-time collection statistics, and bulk settlement operations.
+    /// 
+    /// ARCHITECTURE: Defensive programming with comprehensive null safety, error handling,
+    /// and robust state management for mission-critical financial operations.
+    /// </summary>
     public partial class CustomerAccountsViewModel : ObservableObject
     {
         #region Private Fields
@@ -26,46 +36,54 @@ namespace PoultrySlaughterPOS.ViewModels
         private readonly IErrorHandlingService _errorHandlingService;
         private readonly IServiceProvider _serviceProvider;
 
+        // Collections for UI binding
         private ObservableCollection<Customer> _customers = new();
         private ObservableCollection<Invoice> _customerInvoices = new();
         private ObservableCollection<Payment> _customerPayments = new();
         private ObservableCollection<string> _validationErrors = new();
 
+        // Current selections and state
         private Customer? _selectedCustomer;
         private Invoice? _selectedInvoice;
         private Payment? _selectedPayment;
 
+        // Search and filtering
         private string _searchText = string.Empty;
         private bool _showActiveOnly = true;
         private bool _showDebtOnly = false;
         private decimal _minimumDebtFilter = 0;
 
+        // Date range filtering
         private DateTime _startDate = DateTime.Today.AddMonths(-3);
         private DateTime _endDate = DateTime.Today;
 
+        // UI State
         private bool _isLoading = false;
-        private bool _isLoadingTransactions = false;
         private bool _hasValidationErrors = false;
         private string _statusMessage = "جاهز لإدارة حسابات الزبائن";
         private string _statusIcon = "Users";
         private string _statusColor = "#28A745";
 
+        // Statistics and analytics
         private int _totalCustomersCount = 0;
         private int _activeCustomersCount = 0;
         private decimal _totalDebtAmount = 0;
         private int _customersWithDebtCount = 0;
         private decimal _averageDebtPerCustomer = 0;
 
+        // Pagination
         private int _currentPage = 1;
         private int _pageSize = 50;
         private int _totalPages = 1;
         private int _totalRecords = 0;
 
+        // View states
         private bool _isCustomerDetailsVisible = true;
         private bool _isTransactionHistoryVisible = false;
         private bool _isPaymentHistoryVisible = false;
         private bool _isDebtAnalysisVisible = false;
 
+        // ENHANCED: Debt settlement specific properties
         private decimal _totalCollectionsToday = 0;
         private int _paymentsProcessedToday = 0;
         private decimal _averagePaymentAmount = 0;
@@ -77,6 +95,10 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes CustomerAccountsViewModel with comprehensive dependency injection
+        /// and enhanced null safety validation
+        /// </summary>
         public CustomerAccountsViewModel(
             IUnitOfWork unitOfWork,
             ILogger<CustomerAccountsViewModel> logger,
@@ -98,24 +120,36 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Observable Properties
 
+        /// <summary>
+        /// Collection of customers with advanced filtering and search capabilities
+        /// </summary>
         public ObservableCollection<Customer> Customers
         {
             get => _customers;
             set => SetProperty(ref _customers, value ?? new ObservableCollection<Customer>());
         }
 
+        /// <summary>
+        /// Collection of invoices for selected customer
+        /// </summary>
         public ObservableCollection<Invoice> CustomerInvoices
         {
             get => _customerInvoices;
             set => SetProperty(ref _customerInvoices, value ?? new ObservableCollection<Invoice>());
         }
 
+        /// <summary>
+        /// Collection of payments for selected customer
+        /// </summary>
         public ObservableCollection<Payment> CustomerPayments
         {
             get => _customerPayments;
             set => SetProperty(ref _customerPayments, value ?? new ObservableCollection<Payment>());
         }
 
+        /// <summary>
+        /// Currently selected customer for detailed operations with enhanced null safety
+        /// </summary>
         public Customer? SelectedCustomer
         {
             get => _selectedCustomer;
@@ -132,18 +166,27 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Currently selected invoice for transaction details
+        /// </summary>
         public Invoice? SelectedInvoice
         {
             get => _selectedInvoice;
             set => SetProperty(ref _selectedInvoice, value);
         }
 
+        /// <summary>
+        /// Currently selected payment for payment details
+        /// </summary>
         public Payment? SelectedPayment
         {
             get => _selectedPayment;
             set => SetProperty(ref _selectedPayment, value);
         }
 
+        /// <summary>
+        /// Search text for real-time customer filtering
+        /// </summary>
         public string SearchText
         {
             get => _searchText;
@@ -156,6 +199,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Filter to show only active customers
+        /// </summary>
         public bool ShowActiveOnly
         {
             get => _showActiveOnly;
@@ -168,6 +214,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Filter to show only customers with debt
+        /// </summary>
         public bool ShowDebtOnly
         {
             get => _showDebtOnly;
@@ -180,6 +229,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Minimum debt amount filter
+        /// </summary>
         public decimal MinimumDebtFilter
         {
             get => _minimumDebtFilter;
@@ -192,6 +244,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Start date for transaction filtering
+        /// </summary>
         public DateTime StartDate
         {
             get => _startDate;
@@ -204,6 +259,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// End date for transaction filtering
+        /// </summary>
         public DateTime EndDate
         {
             get => _endDate;
@@ -216,48 +274,61 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Loading state indicator
+        /// </summary>
         public bool IsLoading
         {
             get => _isLoading;
             set => SetProperty(ref _isLoading, value);
         }
 
-        public bool IsLoadingTransactions
-        {
-            get => _isLoadingTransactions;
-            set => SetProperty(ref _isLoadingTransactions, value);
-        }
-
+        /// <summary>
+        /// Validation errors indicator
+        /// </summary>
         public bool HasValidationErrors
         {
             get => _hasValidationErrors;
             set => SetProperty(ref _hasValidationErrors, value);
         }
 
+        /// <summary>
+        /// Collection of validation error messages
+        /// </summary>
         public ObservableCollection<string> ValidationErrors
         {
             get => _validationErrors;
             set => SetProperty(ref _validationErrors, value ?? new ObservableCollection<string>());
         }
 
+        /// <summary>
+        /// Status message for user feedback
+        /// </summary>
         public string StatusMessage
         {
             get => _statusMessage;
             set => SetProperty(ref _statusMessage, value ?? string.Empty);
         }
 
+        /// <summary>
+        /// Status icon for UI feedback
+        /// </summary>
         public string StatusIcon
         {
             get => _statusIcon;
             set => SetProperty(ref _statusIcon, value ?? "Users");
         }
 
+        /// <summary>
+        /// Status color for UI feedback
+        /// </summary>
         public string StatusColor
         {
             get => _statusColor;
             set => SetProperty(ref _statusColor, value ?? "#28A745");
         }
 
+        // Statistics Properties with null safety
         public int TotalCustomersCount
         {
             get => _totalCustomersCount;
@@ -288,6 +359,7 @@ namespace PoultrySlaughterPOS.ViewModels
             set => SetProperty(ref _averageDebtPerCustomer, Math.Max(0, value));
         }
 
+        // Pagination Properties with validation
         public int CurrentPage
         {
             get => _currentPage;
@@ -306,7 +378,7 @@ namespace PoultrySlaughterPOS.ViewModels
             get => _pageSize;
             set
             {
-                var newValue = Math.Max(10, Math.Min(1000, value));
+                var newValue = Math.Max(10, Math.Min(1000, value)); // Limit page size
                 if (SetProperty(ref _pageSize, newValue))
                 {
                     CurrentPage = 1;
@@ -327,6 +399,7 @@ namespace PoultrySlaughterPOS.ViewModels
             set => SetProperty(ref _totalRecords, Math.Max(0, value));
         }
 
+        // View State Properties
         public bool IsCustomerDetailsVisible
         {
             get => _isCustomerDetailsVisible;
@@ -351,71 +424,119 @@ namespace PoultrySlaughterPOS.ViewModels
             set => SetProperty(ref _isDebtAnalysisVisible, value);
         }
 
+        /// <summary>
+        /// Indicates whether pagination controls should be visible
+        /// </summary>
         public bool IsPaginationVisible => TotalPages > 1;
 
+        /// <summary>
+        /// Indicates whether previous page navigation is available
+        /// </summary>
         public bool CanGoToPreviousPage => CurrentPage > 1;
 
+        /// <summary>
+        /// Indicates whether next page navigation is available
+        /// </summary>
         public bool CanGoToNextPage => CurrentPage < TotalPages;
 
+        // ENHANCED: Debt Settlement Properties with validation
+
+        /// <summary>
+        /// Total collections processed today
+        /// </summary>
         public decimal TotalCollectionsToday
         {
             get => _totalCollectionsToday;
             set => SetProperty(ref _totalCollectionsToday, Math.Max(0, value));
         }
 
+        /// <summary>
+        /// Number of payments processed today
+        /// </summary>
         public int PaymentsProcessedToday
         {
             get => _paymentsProcessedToday;
             set => SetProperty(ref _paymentsProcessedToday, Math.Max(0, value));
         }
 
+        /// <summary>
+        /// Average payment amount across all customers
+        /// </summary>
         public decimal AveragePaymentAmount
         {
             get => _averagePaymentAmount;
             set => SetProperty(ref _averagePaymentAmount, Math.Max(0, value));
         }
 
+        /// <summary>
+        /// Quick payment mode for rapid debt settlement processing
+        /// </summary>
         public bool IsQuickPaymentMode
         {
             get => _isQuickPaymentMode;
             set => SetProperty(ref _isQuickPaymentMode, value);
         }
 
+        /// <summary>
+        /// Total collections for current month
+        /// </summary>
         public decimal TotalCollectionsThisMonth
         {
             get => _totalCollectionsThisMonth;
             set => SetProperty(ref _totalCollectionsThisMonth, Math.Max(0, value));
         }
 
+        /// <summary>
+        /// Collection efficiency rate (collections vs total debt)
+        /// </summary>
         public decimal CollectionEfficiencyRate
         {
             get => _collectionEfficiencyRate;
             set => SetProperty(ref _collectionEfficiencyRate, Math.Max(0, Math.Min(1, value)));
         }
 
+        /// <summary>
+        /// Indicates whether a payment can be processed for selected customer with comprehensive validation
+        /// </summary>
         public bool CanProcessPayment => SelectedCustomer != null &&
                                         SelectedCustomer.TotalDebt > 0 &&
                                         !IsLoading &&
                                         _serviceProvider != null;
 
+        /// <summary>
+        /// Indicates whether selected customer has outstanding debt
+        /// </summary>
         public bool HasSelectedCustomerWithDebt => SelectedCustomer?.TotalDebt > 0;
 
+        /// <summary>
+        /// Selected customer's debt amount for display
+        /// </summary>
         public decimal SelectedCustomerDebtAmount => SelectedCustomer?.TotalDebt ?? 0;
 
+        /// <summary>
+        /// Selected customer's display name with null safety
+        /// </summary>
         public string SelectedCustomerDisplayName => SelectedCustomer?.CustomerName ?? "لم يتم اختيار زبون";
 
         #endregion
 
         #region Commands
 
+        // ENHANCED: Debt Settlement Commands with comprehensive null safety
+
+        /// <summary>
+        /// Process payment command with enhanced error handling and null safety
+        /// </summary>
         [RelayCommand]
         private async Task ProcessPaymentAsync()
         {
+            // Comprehensive pre-validation
             if (!ValidatePaymentProcessingPreconditions())
             {
                 return;
             }
 
+            // Capture customer reference to prevent race conditions
             var customerForPayment = SelectedCustomer;
             if (customerForPayment == null)
             {
@@ -428,16 +549,19 @@ namespace PoultrySlaughterPOS.ViewModels
                 _logger.LogInformation("Initiating payment processing for customer: {CustomerName} (ID: {CustomerId}, Debt: {Debt:C})",
                     customerForPayment.CustomerName, customerForPayment.CustomerId, customerForPayment.TotalDebt);
 
+                // Validate service provider
                 if (_serviceProvider == null)
                 {
                     throw new InvalidOperationException("Service provider is not available for payment dialog creation");
                 }
 
+                // Get current window with null safety
                 var currentWindow = GetCurrentWindowSafely();
 
                 _logger.LogDebug("Obtained current window reference: {WindowType}",
                     currentWindow?.GetType().Name ?? "null");
 
+                // Call payment dialog with comprehensive error handling
                 var processedPayment = await PaymentDialog.ShowPaymentDialogAsync(
                     _serviceProvider, currentWindow, customerForPayment);
 
@@ -460,9 +584,13 @@ namespace PoultrySlaughterPOS.ViewModels
             }, "معالجة الدفعة");
         }
 
+        /// <summary>
+        /// Quick payment command with enhanced validation and error handling
+        /// </summary>
         [RelayCommand]
         private async Task QuickPaymentAsync(object? parameter)
         {
+            // Comprehensive pre-validation
             if (!ValidatePaymentProcessingPreconditions())
             {
                 return;
@@ -485,6 +613,7 @@ namespace PoultrySlaughterPOS.ViewModels
                     return;
                 }
 
+                // Confirm quick payment
                 var result = MessageBox.Show(
                     $"هل تريد تسجيل دفعة سريعة بمبلغ {paymentAmount:N2} USD للزبون '{customerForPayment.CustomerName}'؟",
                     "تأكيد الدفعة السريعة",
@@ -493,6 +622,7 @@ namespace PoultrySlaughterPOS.ViewModels
 
                 if (result == MessageBoxResult.Yes)
                 {
+                    // Create payment directly with comprehensive validation
                     var payment = new Payment
                     {
                         CustomerId = customerForPayment.CustomerId,
@@ -504,6 +634,7 @@ namespace PoultrySlaughterPOS.ViewModels
                         UpdatedDate = DateTime.Now
                     };
 
+                    // Validate unit of work before usage
                     if (_unitOfWork?.Payments == null)
                     {
                         throw new InvalidOperationException("Payment repository is not available");
@@ -518,6 +649,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }, "دفعة سريعة");
         }
 
+        /// <summary>
+        /// View payment history command with null safety
+        /// </summary>
         [RelayCommand]
         private async Task ViewPaymentHistoryAsync()
         {
@@ -539,6 +673,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }, "عرض تاريخ الدفعات");
         }
 
+        /// <summary>
+        /// Refresh collection statistics command
+        /// </summary>
         [RelayCommand]
         private async Task RefreshCollectionStatisticsAsync()
         {
@@ -549,6 +686,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }, "تحديث إحصائيات التحصيل");
         }
 
+        /// <summary>
+        /// Settle all debts command with comprehensive validation
+        /// </summary>
         [RelayCommand]
         private async Task SettleAllDebtsAsync()
         {
@@ -576,6 +716,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }, "تسوية جميع الديون");
         }
 
+        /// <summary>
+        /// Process bulk payments command
+        /// </summary>
         [RelayCommand]
         private async Task ProcessBulkPaymentsAsync()
         {
@@ -589,6 +732,7 @@ namespace PoultrySlaughterPOS.ViewModels
                     return;
                 }
 
+                // Process partial payments for top 10 debtors
                 var totalDebt = customersWithDebt.Sum(c => c.TotalDebt);
                 var result = MessageBox.Show(
                     $"هل تريد معالجة دفعات جزئية لأعلى {customersWithDebt.Count} زبون مديون؟\n\nسيتم دفع 25% من دين كل زبون.\nإجمالي المبلغ المتوقع: {totalDebt * 0.25m:N2} USD",
@@ -602,6 +746,8 @@ namespace PoultrySlaughterPOS.ViewModels
                 }
             }, "الدفعات الجماعية");
         }
+
+        // Standard Customer Management Commands with enhanced null safety
 
         [RelayCommand]
         private async Task AddNewCustomerAsync()
@@ -814,13 +960,14 @@ namespace PoultrySlaughterPOS.ViewModels
             }, "إعادة حساب الرصيد");
         }
 
+        // Pagination Commands with validation
         [RelayCommand]
         private async Task GoToPreviousPageAsync()
         {
             if (CanGoToPreviousPage)
             {
                 CurrentPage = Math.Max(1, CurrentPage - 1);
-                await Task.Delay(10);
+                await Task.Delay(10); // Brief delay for UI responsiveness
             }
         }
 
@@ -830,7 +977,7 @@ namespace PoultrySlaughterPOS.ViewModels
             if (CanGoToNextPage)
             {
                 CurrentPage = Math.Min(TotalPages, CurrentPage + 1);
-                await Task.Delay(10);
+                await Task.Delay(10); // Brief delay for UI responsiveness
             }
         }
 
@@ -840,7 +987,7 @@ namespace PoultrySlaughterPOS.ViewModels
             if (CurrentPage != 1)
             {
                 CurrentPage = 1;
-                await Task.Delay(10);
+                await Task.Delay(10); // Brief delay for UI responsiveness
             }
         }
 
@@ -850,129 +997,7 @@ namespace PoultrySlaughterPOS.ViewModels
             if (CurrentPage != TotalPages && TotalPages > 0)
             {
                 CurrentPage = TotalPages;
-                await Task.Delay(10);
-            }
-        }
-
-        [RelayCommand]
-        private async Task ViewInvoiceDetails(int invoiceId)
-        {
-            try
-            {
-                if (_unitOfWork?.Invoices == null)
-                {
-                    _logger.LogWarning("Cannot view invoice details - invoice repository not available");
-                    return;
-                }
-
-                var invoice = await _unitOfWork.Invoices.GetByIdAsync(invoiceId);
-                if (invoice == null)
-                {
-                    UpdateStatus("الفاتورة المطلوبة غير موجودة", "ExclamationTriangle", "#DC3545");
-                    return;
-                }
-
-                // TODO: Implement invoice details dialog
-                // var invoiceDetailsDialog = _serviceProvider.GetService<InvoiceDetailsDialog>();
-                // if (invoiceDetailsDialog != null)
-                // {
-                //     invoiceDetailsDialog.LoadInvoice(invoice);
-                //     invoiceDetailsDialog.ShowDialog();
-                // }
-
-                UpdateStatus($"عرض تفاصيل الفاتورة {invoice.InvoiceNumber}", "Info", "#007BFF");
-                _logger.LogInformation("Invoice details displayed for invoice {InvoiceId}", invoiceId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error viewing invoice details for invoice {InvoiceId}", invoiceId);
-                UpdateStatus("خطأ في عرض تفاصيل الفاتورة", "ExclamationTriangle", "#DC3545");
-            }
-        }
-
-        [RelayCommand]
-        private async Task PrintInvoice(int invoiceId)
-        {
-            try
-            {
-                if (_unitOfWork?.Invoices == null)
-                {
-                    _logger.LogWarning("Cannot print invoice - invoice repository not available");
-                    return;
-                }
-
-                var invoice = await _unitOfWork.Invoices.GetByIdAsync(invoiceId);
-                if (invoice == null)
-                {
-                    UpdateStatus("الفاتورة المطلوبة غير موجودة", "ExclamationTriangle", "#DC3545");
-                    return;
-                }
-
-                var printingService = _serviceProvider.GetService<IPrintingService>();
-                if (printingService != null)
-                {
-                    await printingService.PrintInvoiceAsync(invoice);
-                    UpdateStatus("تم طباعة الفاتورة بنجاح", "CheckCircle", "#10B981");
-                }
-                else
-                {
-                    _logger.LogWarning("Printing service not available");
-                    UpdateStatus("خدمة الطباعة غير متوفرة", "ExclamationTriangle", "#F59E0B");
-                }
-
-                _logger.LogInformation("Invoice printed successfully for invoice {InvoiceId}", invoiceId);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error printing invoice {InvoiceId}", invoiceId);
-                UpdateStatus("خطأ في طباعة الفاتورة", "ExclamationTriangle", "#DC3545");
-            }
-        }
-
-        [RelayCommand]
-        private async Task ExportTransactions(object parameter)
-        {
-            try
-            {
-                if (SelectedCustomer == null)
-                {
-                    UpdateStatus("يجب تحديد زبون أولاً", "ExclamationTriangle", "#F59E0B");
-                    return;
-                }
-
-                dynamic exportParams = parameter;
-                string format = exportParams.Format ?? "PDF";
-                Customer customer = exportParams.Customer ?? SelectedCustomer;
-                DateTime startDate = exportParams.StartDate ?? StartDate;
-                DateTime endDate = exportParams.EndDate ?? EndDate;
-
-                var exportService = _serviceProvider.GetService<IExportService>();
-                if (exportService == null)
-                {
-                    _logger.LogWarning("Export service not available");
-                    UpdateStatus("خدمة التصدير غير متوفرة", "ExclamationTriangle", "#F59E0B");
-                    return;
-                }
-
-                string fileName = $"تاريخ_معاملات_{customer.CustomerName}_{DateTime.Now:yyyyMMdd}";
-
-                if (format.ToUpper() == "PDF")
-                {
-                    await exportService.ExportTransactionsToPdfAsync(CustomerInvoices, customer, startDate, endDate, fileName);
-                }
-                else if (format.ToUpper() == "EXCEL")
-                {
-                    await exportService.ExportTransactionsToExcelAsync(CustomerInvoices, customer, startDate, endDate, fileName);
-                }
-
-                UpdateStatus($"تم تصدير المعاملات بصيغة {format} بنجاح", "CheckCircle", "#10B981");
-                _logger.LogInformation("Transactions exported successfully for customer {CustomerId} in {Format} format",
-                    customer.CustomerId, format);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error exporting transactions");
-                UpdateStatus("خطأ في تصدير المعاملات", "ExclamationTriangle", "#DC3545");
+                await Task.Delay(10); // Brief delay for UI responsiveness
             }
         }
 
@@ -980,6 +1005,9 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Public Methods
 
+        /// <summary>
+        /// Initializes the customer accounts view with comprehensive data loading and null safety
+        /// </summary>
         public async Task InitializeAsync()
         {
             try
@@ -987,12 +1015,14 @@ namespace PoultrySlaughterPOS.ViewModels
                 IsLoading = true;
                 UpdateStatus("جاري تحميل بيانات الزبائن...", "Spinner", "#007BFF");
 
+                // Validate dependencies before initialization
                 ValidateDependencies();
 
                 await LoadCustomersPagedAsync();
                 await CalculateStatisticsAsync();
                 await CalculateCollectionStatisticsAsync();
 
+                // Show customer details by default
                 ShowCustomerDetails();
 
                 UpdateStatus($"تم تحميل {TotalRecords} زبون بنجاح", "CheckCircle", "#28A745");
@@ -1010,6 +1040,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Cleanup method for resource disposal with null safety
+        /// </summary>
         public void Cleanup()
         {
             try
@@ -1031,6 +1064,9 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Private Methods - Validation and Safety
 
+        /// <summary>
+        /// Validates all dependencies are properly injected and available
+        /// </summary>
         private void ValidateDependencies()
         {
             if (_unitOfWork == null)
@@ -1048,10 +1084,14 @@ namespace PoultrySlaughterPOS.ViewModels
             _logger.LogDebug("All dependencies validated successfully");
         }
 
+        /// <summary>
+        /// Validates preconditions for payment processing with comprehensive checks
+        /// </summary>
         private bool ValidatePaymentProcessingPreconditions()
         {
             try
             {
+                // Check if customer is selected
                 if (SelectedCustomer == null)
                 {
                     UpdateStatus("يرجى اختيار زبون لمعالجة الدفعة", "ExclamationTriangle", "#DC3545");
@@ -1059,6 +1099,7 @@ namespace PoultrySlaughterPOS.ViewModels
                     return false;
                 }
 
+                // Check if customer has debt
                 if (SelectedCustomer.TotalDebt <= 0)
                 {
                     UpdateStatus($"الزبون '{SelectedCustomer.CustomerName}' ليس لديه ديون للتسديد", "Info", "#17A2B8");
@@ -1066,6 +1107,7 @@ namespace PoultrySlaughterPOS.ViewModels
                     return false;
                 }
 
+                // Check if system is not currently loading
                 if (IsLoading)
                 {
                     UpdateStatus("النظام قيد التحميل، يرجى الانتظار", "Spinner", "#007BFF");
@@ -1073,6 +1115,7 @@ namespace PoultrySlaughterPOS.ViewModels
                     return false;
                 }
 
+                // Check if service provider is available
                 if (_serviceProvider == null)
                 {
                     UpdateStatus("خدمة معالجة الدفعات غير متاحة", "ExclamationTriangle", "#DC3545");
@@ -1080,6 +1123,7 @@ namespace PoultrySlaughterPOS.ViewModels
                     return false;
                 }
 
+                // Check if unit of work is available
                 if (_unitOfWork?.Payments == null)
                 {
                     UpdateStatus("خدمة قاعدة البيانات غير متاحة", "ExclamationTriangle", "#DC3545");
@@ -1097,6 +1141,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the current window safely with proper null handling
+        /// </summary>
         private Window? GetCurrentWindowSafely()
         {
             try
@@ -1134,6 +1181,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Calculates quick payment amount with comprehensive validation
+        /// </summary>
         private decimal CalculateQuickPaymentAmount(object? parameter, decimal totalDebt)
         {
             try
@@ -1154,9 +1204,11 @@ namespace PoultrySlaughterPOS.ViewModels
                 }
                 else
                 {
+                    // Default to full amount
                     paymentAmount = totalDebt;
                 }
 
+                // Ensure payment amount is positive and reasonable
                 paymentAmount = Math.Max(0, paymentAmount);
 
                 _logger.LogDebug("Calculated quick payment amount: {Amount:C} from parameter: {Parameter}",
@@ -1175,6 +1227,9 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Private Methods - Data Operations
 
+        /// <summary>
+        /// Initializes collection views for advanced filtering and sorting with null safety
+        /// </summary>
         private void InitializeCollectionViews()
         {
             Customers = new ObservableCollection<Customer>();
@@ -1185,6 +1240,9 @@ namespace PoultrySlaughterPOS.ViewModels
             _logger.LogDebug("Collection views initialized successfully");
         }
 
+        /// <summary>
+        /// Loads customers with pagination support and comprehensive error handling
+        /// </summary>
         private async Task LoadCustomersPagedAsync()
         {
             try
@@ -1229,11 +1287,14 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Applies search and filter criteria with null safety
+        /// </summary>
         private async Task ApplyFiltersAsync()
         {
             try
             {
-                CurrentPage = 1;
+                CurrentPage = 1; // Reset to first page when filtering
                 await LoadCustomersPagedAsync();
             }
             catch (Exception ex)
@@ -1243,6 +1304,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Refreshes customer list and statistics with comprehensive error handling
+        /// </summary>
         private async Task RefreshCustomersAsync()
         {
             try
@@ -1257,6 +1321,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Calculates comprehensive customer statistics with null safety
+        /// </summary>
         private async Task CalculateStatisticsAsync()
         {
             try
@@ -1282,9 +1349,13 @@ namespace PoultrySlaughterPOS.ViewModels
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error calculating customer statistics");
+                // Don't throw, just log the error to avoid breaking the UI
             }
         }
 
+        /// <summary>
+        /// Calculates collection and payment statistics with comprehensive validation
+        /// </summary>
         private async Task CalculateCollectionStatisticsAsync()
         {
             try
@@ -1299,18 +1370,22 @@ namespace PoultrySlaughterPOS.ViewModels
                 var startOfDay = today;
                 var endOfDay = today.AddDays(1);
 
+                // Get today's payment summary
                 var (totalAmount, paymentCount) = await _unitOfWork.Payments.GetPaymentsSummaryAsync(startOfDay, endOfDay);
                 TotalCollectionsToday = Math.Max(0, totalAmount);
                 PaymentsProcessedToday = Math.Max(0, paymentCount);
 
+                // Calculate this month's collections
                 var startOfMonth = new DateTime(today.Year, today.Month, 1);
                 var (monthlyTotal, monthlyCount) = await _unitOfWork.Payments.GetPaymentsSummaryAsync(startOfMonth, endOfDay);
                 TotalCollectionsThisMonth = Math.Max(0, monthlyTotal);
 
+                // Calculate average payment amount (last 30 days)
                 var thirtyDaysAgo = DateTime.Today.AddDays(-30);
                 var (monthlyAvgTotal, monthlyAvgCount) = await _unitOfWork.Payments.GetPaymentsSummaryAsync(thirtyDaysAgo, endOfDay);
                 AveragePaymentAmount = monthlyAvgCount > 0 ? monthlyAvgTotal / monthlyAvgCount : 0;
 
+                // Calculate collection efficiency rate
                 if (TotalDebtAmount > 0)
                 {
                     CollectionEfficiencyRate = Math.Min(1.0m, TotalCollectionsThisMonth / TotalDebtAmount);
@@ -1326,9 +1401,13 @@ namespace PoultrySlaughterPOS.ViewModels
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error calculating collection statistics");
+                // Don't throw, just log the error to avoid breaking the UI
             }
         }
 
+        /// <summary>
+        /// Refreshes data after payment processing with comprehensive error handling
+        /// </summary>
         private async Task RefreshAfterPaymentAsync(Payment processedPayment)
         {
             try
@@ -1339,8 +1418,10 @@ namespace PoultrySlaughterPOS.ViewModels
                     return;
                 }
 
+                // Refresh customer data
                 await RefreshCustomersAsync();
 
+                // Refresh customer transactions if visible
                 if (SelectedCustomer != null)
                 {
                     if (IsPaymentHistoryVisible)
@@ -1354,8 +1435,10 @@ namespace PoultrySlaughterPOS.ViewModels
                     }
                 }
 
+                // Update collection statistics
                 await CalculateCollectionStatisticsAsync();
 
+                // Update customer selection to reflect new balance
                 if (SelectedCustomer != null)
                 {
                     var updatedCustomer = Customers?.FirstOrDefault(c => c != null && c.CustomerId == SelectedCustomer.CustomerId);
@@ -1375,6 +1458,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Handles customer selection changes and loads related data with null safety
+        /// </summary>
         private async void OnCustomerSelectionChanged()
         {
             try
@@ -1384,11 +1470,13 @@ namespace PoultrySlaughterPOS.ViewModels
                     _logger.LogDebug("Customer selected: {CustomerName} (ID: {CustomerId}, Debt: {Debt:C})",
                         SelectedCustomer.CustomerName, SelectedCustomer.CustomerId, SelectedCustomer.TotalDebt);
 
+                    // Load customer transactions if transaction history is visible
                     if (IsTransactionHistoryVisible)
                     {
                         await LoadCustomerTransactionsAsync();
                     }
 
+                    // Load customer payments if payment history is visible
                     if (IsPaymentHistoryVisible)
                     {
                         await LoadCustomerPaymentsAsync();
@@ -1408,7 +1496,10 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
-        public async Task LoadCustomerTransactionsAsync()
+        /// <summary>
+        /// Loads transaction history for selected customer with comprehensive validation
+        /// </summary>
+        private async Task LoadCustomerTransactionsAsync()
         {
             try
             {
@@ -1423,8 +1514,6 @@ namespace PoultrySlaughterPOS.ViewModels
                     _logger.LogWarning("Cannot load customer transactions - customer repository not available");
                     return;
                 }
-
-                IsLoadingTransactions = true;
 
                 var invoices = await _unitOfWork.Customers.GetCustomerInvoicesAsync(
                     SelectedCustomer.CustomerId, StartDate, EndDate);
@@ -1447,12 +1536,11 @@ namespace PoultrySlaughterPOS.ViewModels
                     SelectedCustomer?.CustomerId);
                 UpdateStatus("خطأ في تحميل معاملات الزبون", "ExclamationTriangle", "#DC3545");
             }
-            finally
-            {
-                IsLoadingTransactions = false;
-            }
         }
 
+        /// <summary>
+        /// Loads payment history for selected customer with comprehensive validation
+        /// </summary>
         private async Task LoadCustomerPaymentsAsync()
         {
             try
@@ -1496,6 +1584,9 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Private Methods - Bulk Operations
 
+        /// <summary>
+        /// Processes bulk debt settlement with comprehensive error handling
+        /// </summary>
         private async Task ProcessBulkDebtSettlement(List<Customer> customers)
         {
             if (customers == null || !customers.Any())
@@ -1571,6 +1662,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Processes bulk partial payments with comprehensive error handling
+        /// </summary>
         private async Task ProcessBulkPartialPayments(List<Customer> customers, decimal paymentPercentage)
         {
             if (customers == null || !customers.Any())
@@ -1645,6 +1739,9 @@ namespace PoultrySlaughterPOS.ViewModels
 
         #region Private Methods - Error Handling and UI
 
+        /// <summary>
+        /// Executes an operation with comprehensive error handling and user feedback
+        /// </summary>
         private async Task ExecuteWithErrorHandlingAsync(Func<Task> operation, string operationName)
         {
             if (operation == null)
@@ -1678,6 +1775,9 @@ namespace PoultrySlaughterPOS.ViewModels
             }
         }
 
+        /// <summary>
+        /// Updates the status display for user feedback with null safety
+        /// </summary>
         private void UpdateStatus(string message, string icon, string color)
         {
             StatusMessage = message ?? "حالة غير معروفة";

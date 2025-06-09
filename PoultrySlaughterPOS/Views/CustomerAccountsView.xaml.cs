@@ -1,25 +1,19 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PoultrySlaughterPOS.Controls;
-using PoultrySlaughterPOS.Models;
 using PoultrySlaughterPOS.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-// Resolve ambiguous references by using aliases for the Controls namespace classes
-using TransactionDisplayRecord = PoultrySlaughterPOS.Controls.TransactionDisplayRecord;
-using TransactionSummary = PoultrySlaughterPOS.Controls.TransactionSummary;
-using TransactionActionEventArgs = PoultrySlaughterPOS.Controls.TransactionActionEventArgs;
-using TransactionExportEventArgs = PoultrySlaughterPOS.Controls.TransactionExportEventArgs;
-using TransactionRefreshEventArgs = PoultrySlaughterPOS.Controls.TransactionRefreshEventArgs;
-
 namespace PoultrySlaughterPOS.Views
 {
+    /// <summary>
+    /// Enterprise-grade Customer Accounts View implementing comprehensive customer management interface
+    /// with advanced search capabilities, real-time filtering, and integrated transaction management.
+    /// Optimized for high-performance operations with keyboard shortcuts and accessibility support.
+    /// </summary>
     public partial class CustomerAccountsView : UserControl
     {
         #region Private Fields
@@ -32,12 +26,16 @@ namespace PoultrySlaughterPOS.Views
 
         #region Constructor
 
+        /// <summary>
+        /// Initializes CustomerAccountsView with dependency injection support
+        /// </summary>
         public CustomerAccountsView()
         {
             try
             {
                 InitializeComponent();
 
+                // Initialize logger if available through service provider - FIXED: Use App.Services instead of App.Current.Services
                 _logger = App.Services?.GetService<ILogger<CustomerAccountsView>>()
                           ?? Microsoft.Extensions.Logging.Abstractions.NullLogger<CustomerAccountsView>.Instance;
 
@@ -48,11 +46,16 @@ namespace PoultrySlaughterPOS.Views
             }
             catch (Exception ex)
             {
+                // Fallback logging if logger not available
                 System.Diagnostics.Debug.WriteLine($"Error initializing CustomerAccountsView: {ex.Message}");
                 throw;
             }
         }
 
+        /// <summary>
+        /// Constructor with explicit ViewModel injection for DI container support
+        /// </summary>
+        /// <param name="viewModel">Pre-configured CustomerAccountsViewModel instance</param>
         public CustomerAccountsView(CustomerAccountsViewModel viewModel) : this()
         {
             SetViewModel(viewModel);
@@ -62,6 +65,10 @@ namespace PoultrySlaughterPOS.Views
 
         #region Public Methods
 
+        /// <summary>
+        /// Sets the ViewModel and initializes the view with comprehensive data loading
+        /// </summary>
+        /// <param name="viewModel">CustomerAccountsViewModel instance</param>
         public void SetViewModel(CustomerAccountsViewModel viewModel)
         {
             try
@@ -69,15 +76,63 @@ namespace PoultrySlaughterPOS.Views
                 _viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
                 DataContext = _viewModel;
 
-                // Subscribe to ViewModel property changes
-                _viewModel.PropertyChanged += ViewModel_PropertyChanged;
+                _logger.LogInformation("ViewModel set successfully for CustomerAccountsView");
 
-                _logger.LogDebug("ViewModel set successfully for CustomerAccountsView");
+                // Initialize the ViewModel asynchronously
+                _ = InitializeViewModelAsync();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error setting ViewModel");
+                _logger.LogError(ex, "Error setting ViewModel for CustomerAccountsView");
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// Manual initialization method for cases where automatic initialization is not desired
+        /// </summary>
+        public async Task InitializeAsync()
+        {
+            try
+            {
+                if (_isInitialized)
+                {
+                    _logger.LogDebug("CustomerAccountsView already initialized, skipping");
+                    return;
+                }
+
+                if (_viewModel != null)
+                {
+                    await _viewModel.InitializeAsync();
+                    _isInitialized = true;
+                    _logger.LogInformation("CustomerAccountsView initialization completed successfully");
+                }
+                else
+                {
+                    _logger.LogWarning("Cannot initialize CustomerAccountsView: ViewModel is null");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error during CustomerAccountsView initialization");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Cleanup method for proper resource disposal
+        /// </summary>
+        public void Cleanup()
+        {
+            try
+            {
+                _viewModel?.Cleanup();
+                _isInitialized = false;
+                _logger.LogDebug("CustomerAccountsView cleanup completed");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Error during CustomerAccountsView cleanup");
             }
         }
 
@@ -85,82 +140,125 @@ namespace PoultrySlaughterPOS.Views
 
         #region Event Handlers
 
+        /// <summary>
+        /// Handles the Loaded event to initialize the view when it becomes visible
+        /// </summary>
         private async void CustomerAccountsView_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (_isInitialized) return;
-
-                _logger.LogDebug("CustomerAccountsView loading started");
-
-                // Initialize the view model if it's available through DI
-                if (_viewModel == null)
+                if (!_isInitialized && _viewModel != null)
                 {
-                    _viewModel = App.Services?.GetService<CustomerAccountsViewModel>();
-                    if (_viewModel != null)
-                    {
-                        SetViewModel(_viewModel);
-                    }
+                    await InitializeAsync();
                 }
-
-                // Initialize the view model data (call on ViewModel, not View)
-                if (_viewModel != null)
-                {
-                    await _viewModel.InitializeAsync();
-                }
-
-                _isInitialized = true;
-                _logger.LogInformation("CustomerAccountsView loaded successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error during CustomerAccountsView loading");
+                _logger.LogError(ex, "Error during CustomerAccountsView Loaded event");
                 MessageBox.Show(
-                    "حدث خطأ أثناء تحميل شاشة حسابات العملاء. " +
-                    "يرجى التحقق من الاتصال بقاعدة البيانات والمحاولة مرة أخرى.",
+                    "حدث خطأ أثناء تحميل صفحة الزبائن. يرجى المحاولة مرة أخرى.",
                     "خطأ في التحميل",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                    MessageBoxImage.Warning);
             }
         }
 
+        /// <summary>
+        /// Handles the Unloaded event for cleanup operations
+        /// </summary>
         private void CustomerAccountsView_Unloaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                // Call cleanup on ViewModel, not View
-                _viewModel?.Cleanup();
-                _logger.LogDebug("CustomerAccountsView unloaded");
+                Cleanup();
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Error during CustomerAccountsView unloading");
+                _logger.LogWarning(ex, "Error during CustomerAccountsView Unloaded event");
             }
         }
 
+        /// <summary>
+        /// Handles keyboard shortcuts for enhanced user productivity
+        /// </summary>
         private void CustomerAccountsView_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
-                // Handle keyboard shortcuts with correct command names
-                if (e.Key == Key.F1 && _viewModel?.AddNewCustomerCommand.CanExecute(null) == true)
+                if (_viewModel == null) return;
+
+                // Handle keyboard shortcuts
+                switch (e.Key)
                 {
-                    _viewModel.AddNewCustomerCommand.Execute(null);
-                    e.Handled = true;
-                }
-                else if (e.Key == Key.F5 && _viewModel?.RefreshDataCommand.CanExecute(null) == true)
-                {
-                    _viewModel.RefreshDataCommand.Execute(null);
-                    e.Handled = true;
-                }
-                else if (e.Key == Key.Escape)
-                {
-                    // Clear selection or close dialogs
-                    if (_viewModel != null)
-                    {
-                        _viewModel.SelectedCustomer = null;
-                    }
-                    e.Handled = true;
+                    case Key.F1:
+                        // Add new customer (F1)
+                        if (_viewModel.AddNewCustomerCommand.CanExecute(null))
+                        {
+                            _viewModel.AddNewCustomerCommand.Execute(null);
+                            e.Handled = true;
+                        }
+                        break;
+
+                    case Key.F2:
+                        // Edit selected customer (F2)
+                        if (_viewModel.EditCustomerCommand.CanExecute(null))
+                        {
+                            _viewModel.EditCustomerCommand.Execute(null);
+                            e.Handled = true;
+                        }
+                        break;
+
+                    case Key.F5:
+                        // Refresh data (F5)
+                        if (_viewModel.RefreshDataCommand.CanExecute(null))
+                        {
+                            _viewModel.RefreshDataCommand.Execute(null);
+                            e.Handled = true;
+                        }
+                        break;
+
+                    case Key.Delete:
+                        // Delete selected customer (Delete key)
+                        if (_viewModel.DeleteCustomerCommand.CanExecute(null))
+                        {
+                            _viewModel.DeleteCustomerCommand.Execute(null);
+                            e.Handled = true;
+                        }
+                        break;
+
+                    case Key.Escape:
+                        // Clear filters (Escape)
+                        if (_viewModel.ClearFiltersCommand.CanExecute(null))
+                        {
+                            _viewModel.ClearFiltersCommand.Execute(null);
+                            e.Handled = true;
+                        }
+                        break;
+
+                    default:
+                        // Handle Ctrl key combinations
+                        if (Keyboard.Modifiers == ModifierKeys.Control)
+                        {
+                            switch (e.Key)
+                            {
+                                case Key.F:
+                                    // Focus search box (Ctrl+F)
+                                    SearchTextBox?.Focus();
+                                    SearchTextBox?.SelectAll();
+                                    e.Handled = true;
+                                    break;
+
+                                case Key.R:
+                                    // Refresh data (Ctrl+R)
+                                    if (_viewModel.RefreshDataCommand.CanExecute(null))
+                                    {
+                                        _viewModel.RefreshDataCommand.Execute(null);
+                                        e.Handled = true;
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
                 }
             }
             catch (Exception ex)
@@ -169,96 +267,71 @@ namespace PoultrySlaughterPOS.Views
             }
         }
 
-        private async void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        /// <summary>
+        /// Handles DataGrid row double-click for quick customer editing
+        /// </summary>
+        private void CustomersDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
             {
-                if (e.PropertyName == nameof(CustomerAccountsViewModel.SelectedCustomer) &&
-                    _viewModel?.IsTransactionHistoryVisible == true)
+                if (_viewModel?.SelectedCustomer != null &&
+                    _viewModel.EditCustomerCommand.CanExecute(null))
                 {
-                    await RefreshTransactionHistoryAsync();
+                    _viewModel.EditCustomerCommand.Execute(null);
+                    e.Handled = true;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Error handling ViewModel property change: {PropertyName}", e.PropertyName);
+                _logger.LogWarning(ex, "Error handling DataGrid double-click");
             }
         }
 
-        #endregion
-
-        #region Transaction History Event Handlers
-
-        private async void TransactionHistoryControl_TransactionRefreshRequested(object sender, TransactionRefreshEventArgs e)
+        /// <summary>
+        /// Handles search text box KeyDown for enhanced search experience
+        /// </summary>
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             try
             {
-                if (_viewModel == null) return;
-
-                _logger.LogDebug("Transaction refresh requested for customer: {CustomerName}", e.Customer.CustomerName);
-
-                await _viewModel.LoadCustomerTransactionsAsync();
-
-                var transactions = await ConvertToTransactionDisplayRecords(_viewModel.CustomerInvoices);
-                var summary = CalculateTransactionSummary(transactions);
-
-                // FIXED: Access the instance properly through the XAML control name with 'this.'
-                this.TransactionHistoryControl.UpdateTransactionHistory(transactions, summary);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error handling transaction refresh request");
-            }
-        }
-
-        private void TransactionHistoryControl_ViewInvoiceRequested(object sender, TransactionActionEventArgs e)
-        {
-            try
-            {
-                if (_viewModel?.ViewInvoiceDetailsCommand.CanExecute(e.Transaction.InvoiceId) == true)
+                // Handle Enter key to focus on customer list
+                if (e.Key == Key.Enter && CustomersDataGrid != null)
                 {
-                    _viewModel.ViewInvoiceDetailsCommand.Execute(e.Transaction.InvoiceId);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error handling view invoice request");
-            }
-        }
+                    CustomersDataGrid.Focus();
 
-        private void TransactionHistoryControl_PrintInvoiceRequested(object sender, TransactionActionEventArgs e)
-        {
-            try
-            {
-                if (_viewModel?.PrintInvoiceCommand.CanExecute(e.Transaction.InvoiceId) == true)
-                {
-                    _viewModel.PrintInvoiceCommand.Execute(e.Transaction.InvoiceId);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error handling print invoice request");
-            }
-        }
-
-        private void TransactionHistoryControl_ExportTransactionsRequested(object sender, TransactionExportEventArgs e)
-        {
-            try
-            {
-                if (_viewModel?.ExportTransactionsCommand.CanExecute(e.ExportFormat) == true)
-                {
-                    _viewModel.ExportTransactionsCommand.Execute(new
+                    // Select first customer if available
+                    if (CustomersDataGrid.Items.Count > 0)
                     {
-                        Format = e.ExportFormat,
-                        Customer = e.Customer,
-                        StartDate = e.StartDate,
-                        EndDate = e.EndDate
-                    });
+                        CustomersDataGrid.SelectedIndex = 0;
+                        CustomersDataGrid.ScrollIntoView(CustomersDataGrid.SelectedItem);
+                    }
+
+                    e.Handled = true;
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error handling export transactions request");
+                _logger.LogWarning(ex, "Error handling search text box KeyDown event");
+            }
+        }
+
+        /// <summary>
+        /// Handles DataGrid selection changes for improved user experience
+        /// </summary>
+        private void CustomersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                // Ensure selected customer details are visible when selection changes
+                if (_viewModel?.SelectedCustomer != null &&
+                    !_viewModel.IsCustomerDetailsVisible)
+                {
+                    _viewModel.ShowCustomerDetailsCommand?.Execute(null);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Error handling DataGrid selection change");
             }
         }
 
@@ -266,12 +339,18 @@ namespace PoultrySlaughterPOS.Views
 
         #region Private Methods
 
+        /// <summary>
+        /// Configures event handlers for UI elements
+        /// </summary>
         private void ConfigureEventHandlers()
         {
             try
             {
+                // Subscribe to view lifecycle events
                 Loaded += CustomerAccountsView_Loaded;
                 Unloaded += CustomerAccountsView_Unloaded;
+
+                // Subscribe to keyboard events
                 KeyDown += CustomerAccountsView_KeyDown;
 
                 _logger.LogDebug("Event handlers configured successfully");
@@ -283,74 +362,68 @@ namespace PoultrySlaughterPOS.Views
             }
         }
 
+        /// <summary>
+        /// Configures keyboard shortcuts for enhanced productivity
+        /// </summary>
         private void ConfigureKeyboardShortcuts()
         {
             try
             {
-                // Enable keyboard navigation
+                // Enable keyboard focus for the user control
                 Focusable = true;
+
+                // Set up input bindings for additional shortcuts if needed
+                InputBindings.Clear();
+
+                // Example: Add custom input binding for Ctrl+N (New Customer)
+                var newCustomerBinding = new KeyBinding(
+                    new RelayCommand(() => _viewModel?.AddNewCustomerCommand?.Execute(null)),
+                    Key.N,
+                    ModifierKeys.Control);
+
+                InputBindings.Add(newCustomerBinding);
 
                 _logger.LogDebug("Keyboard shortcuts configured successfully");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error configuring keyboard shortcuts");
+                _logger.LogWarning(ex, "Error configuring keyboard shortcuts");
             }
         }
 
-        private async Task RefreshTransactionHistoryAsync()
+        /// <summary>
+        /// Initializes the ViewModel asynchronously with proper error handling
+        /// </summary>
+        private async Task InitializeViewModelAsync()
         {
             try
             {
-                if (_viewModel?.SelectedCustomer == null) return;
-
-                // FIXED: Access the instance properly through the XAML control name with 'this.'
-                await this.TransactionHistoryControl.LoadTransactionHistoryAsync(
-                    _viewModel.SelectedCustomer,
-                    _viewModel.StartDate,
-                    _viewModel.EndDate);
+                if (_viewModel != null && !_isInitialized)
+                {
+                    await _viewModel.InitializeAsync();
+                    _isInitialized = true;
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error refreshing transaction history");
+                _logger.LogError(ex, "Error during ViewModel initialization");
+
+                // Show user-friendly error message
+                MessageBox.Show(
+                    "حدث خطأ أثناء تحميل بيانات الزبائن. يرجى التحقق من الاتصال بقاعدة البيانات والمحاولة مرة أخرى.",
+                    "خطأ في التحميل",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
-        }
-
-        private async Task<IEnumerable<TransactionDisplayRecord>> ConvertToTransactionDisplayRecords(IEnumerable<Invoice> invoices)
-        {
-            return await Task.Run(() =>
-            {
-                return invoices.Select(invoice => new TransactionDisplayRecord
-                {
-                    InvoiceId = invoice.InvoiceId,
-                    InvoiceNumber = invoice.InvoiceNumber,
-                    InvoiceDate = invoice.InvoiceDate,
-                    TruckNumber = invoice.Truck?.TruckNumber ?? "غير محدد",
-                    GrossWeight = invoice.GrossWeight,
-                    NetWeight = invoice.NetWeight,
-                    FinalAmount = invoice.FinalAmount,
-                    PaidAmount = invoice.Payments?.Sum(p => p.Amount) ?? 0
-                }).ToList();
-            });
-        }
-
-        private TransactionSummary CalculateTransactionSummary(IEnumerable<TransactionDisplayRecord> transactions)
-        {
-            var transactionList = transactions.ToList();
-
-            return new TransactionSummary
-            {
-                TotalInvoices = transactionList.Count,
-                TotalAmount = transactionList.Sum(t => t.FinalAmount),
-                PaidAmount = transactionList.Sum(t => t.PaidAmount),
-                OutstandingAmount = transactionList.Sum(t => t.OutstandingAmount)
-            };
         }
 
         #endregion
 
         #region Helper Classes
 
+        /// <summary>
+        /// Simple relay command implementation for input bindings
+        /// </summary>
         private class RelayCommand : ICommand
         {
             private readonly Action _execute;

@@ -1,0 +1,62 @@
+[2025-06-09 07:44:08.676 +03:00 ERR] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'PoultrySlaughterPOS.Data.PoultryDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-06-09 07:44:08.829 +03:00 ERR] PoultrySlaughterPOS.Services.Repositories.CustomerRepository: Error retrieving debt summary
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetDebtSummaryAsync(CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 177
+[2025-06-09 07:44:09.006 +03:00 ERR] PoultrySlaughterPOS.MainWindow: Error loading dashboard statistics
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.ShapedQueryCompilingExpressionVisitor.SingleOrDefaultAsync[TSource](IAsyncEnumerable`1 asyncEnumerable, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetDebtSummaryAsync(CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 177
+   at PoultrySlaughterPOS.MainWindow.LoadDashboardStatisticsAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\MainWindow.xaml.cs:line 527
+[2025-06-09 07:44:24.888 +03:00 ERR] Microsoft.EntityFrameworkCore.Query: An exception occurred while iterating over the results of a query for context type 'PoultrySlaughterPOS.Data.PoultryDbContext'.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+[2025-06-09 07:44:25.003 +03:00 ERR] PoultrySlaughterPOS.Services.Repositories.CustomerRepository: Error retrieving paged customers. Page: 1, Size: 50, Search: , Active: true
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetCustomersPagedAsync(Int32 pageNumber, Int32 pageSize, String searchTerm, Nullable`1 isActive, CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 356
+[2025-06-09 07:44:25.086 +03:00 ERR] PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel: Error loading customers paged
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetCustomersPagedAsync(Int32 pageNumber, Int32 pageSize, String searchTerm, Nullable`1 isActive, CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 356
+   at PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel.LoadCustomersPagedAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\ViewModels\CustomerAccountsViewModel.cs:line 1255
+[2025-06-09 07:44:25.159 +03:00 ERR] PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel: Error during CustomerAccountsViewModel initialization
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetCustomersPagedAsync(Int32 pageNumber, Int32 pageSize, String searchTerm, Nullable`1 isActive, CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 356
+   at PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel.LoadCustomersPagedAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\ViewModels\CustomerAccountsViewModel.cs:line 1255
+   at PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\ViewModels\CustomerAccountsViewModel.cs:line 1021
+[2025-06-09 07:44:25.163 +03:00 ERR] PoultrySlaughterPOS.Services.ErrorHandlingService: Error 53373e30 in CustomerAccountsViewModel.InitializeAsync: InvalidOperationException - A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at PoultrySlaughterPOS.Services.Repositories.CustomerRepository.GetCustomersPagedAsync(Int32 pageNumber, Int32 pageSize, String searchTerm, Nullable`1 isActive, CancellationToken cancellationToken) in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\Services\Repositories\Implementations\CustomerRepository.cs:line 356
+   at PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel.LoadCustomersPagedAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\ViewModels\CustomerAccountsViewModel.cs:line 1255
+   at PoultrySlaughterPOS.ViewModels.CustomerAccountsViewModel.InitializeAsync() in C:\Users\Mr. Ahmad\Desktop\8-6-chicken\PoultrySlaughterPOS\PoultrySlaughterPOS\ViewModels\CustomerAccountsViewModel.cs:line 1021

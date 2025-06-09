@@ -66,7 +66,7 @@ namespace PoultrySlaughterPOS
                 Log.Information("Service provider configured successfully");
 
                 // Initialize database with enhanced error handling
-            //    await InitializeDatabaseAsync();
+                //    await InitializeDatabaseAsync();
 
                 // Create and display main window through dependency injection
                 await ShowMainWindowAsync();
@@ -275,10 +275,6 @@ namespace PoultrySlaughterPOS
             services.AddScoped<IErrorHandlingService, ErrorHandlingService>();
             services.AddScoped<ITruckLoadingService, TruckLoadingService>();
             services.AddScoped<IPOSService, POSService>();
-
-            // ADDED: Export and Printing services to resolve CS0246 errors
-            services.AddScoped<IExportService, Services.Implementations.ExportService>();
-            services.AddScoped<IPrintingService, Services.Implementations.PrintingService>();
 
             // Customer management business services (future expansion)
             // services.AddScoped<ICustomerService, CustomerService>();

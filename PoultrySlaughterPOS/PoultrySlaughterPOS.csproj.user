@@ -38,9 +38,6 @@
     <Compile Update="Views\POSView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\TransactionHistoryControl.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\TruckLoadingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
