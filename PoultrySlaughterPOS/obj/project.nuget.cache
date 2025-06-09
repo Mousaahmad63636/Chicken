@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G1CQWh9c4Rg=",
+  "dgSpecHash": "eQ51rHHTKlE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+  "projectFilePath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mr. Ahmad\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Mr. Ahmad\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -189,9 +189,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Microsoft.ReportingServices.ReportViewerControl.Winforms 150.1620.0 depends on Microsoft.SqlServer.Types (>= 14.0.0) but Microsoft.SqlServer.Types 14.0.0 was not found. Microsoft.SqlServer.Types 14.0.314.76 was resolved instead.",
-      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "libraryId": "Microsoft.SqlServer.Types",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -201,9 +201,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Package 'Microsoft.Data.SqlClient' 5.1.2 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
-      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "libraryId": "Microsoft.Data.SqlClient",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -213,9 +213,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'FontAwesome.WPF 4.7.0.9' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "libraryId": "FontAwesome.WPF",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -225,9 +225,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.ReportingServices.ReportViewerControl.Winforms 150.1620.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "libraryId": "Microsoft.ReportingServices.ReportViewerControl.Winforms",
       "targetGraphs": [
         "net8.0-windows7.0"
@@ -237,9 +237,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "Package 'Microsoft.SqlServer.Types 14.0.314.76' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows7.0'. This package may not be fully compatible with your project.",
-      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+      "filePath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
       "libraryId": "Microsoft.SqlServer.Types",
       "targetGraphs": [
         "net8.0-windows7.0"

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj": {}
+    "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj": {
+    "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+        "projectUniqueName": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
         "projectName": "PoultrySlaughterPOS",
-        "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
+        "projectPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj",
         "packagesPath": "C:\\Users\\Mr. Ahmad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\obj\\",
+        "outputPath": "C:\\Users\\Mr. Ahmad\\Desktop\\Chicken-52fcafa715f985cce12e5301554d8480de4ef024\\PoultrySlaughterPOS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mr. Ahmad\\AppData\\Roaming\\NuGet\\NuGet.Config",
