@@ -1,0 +1,455 @@
+﻿<!-- PoultrySlaughterPOS/Views/TransactionHistoryView.xaml -->
+<UserControl x:Class="PoultrySlaughterPOS.Views.TransactionHistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:converters="clr-namespace:PoultrySlaughterPOS.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="1200"
+             FlowDirection="RightToLeft">
+
+    <UserControl.Resources>
+        <!-- Converters -->
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <x:Static x:Key="InverseBooleanConverter" Member="converters:InverseBooleanConverter.Instance"/>
+
+        <!-- Styles -->
+        <Style x:Key="ModernCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.1" Color="Gray"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FilterButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Foreground" Value="#495057"/>
+            <Setter Property="BorderBrush" Value="#DEE2E6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E9ECEF"/>
+                                <Setter Property="BorderBrush" Value="#ADB5BD"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#DEE2E6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#007BFF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#0056B3"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#004085"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#6C757D"/>
+                                <Setter Property="Foreground" Value="#ADB5BD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExportButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="#28A745"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1E7E34"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#155724"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="StatCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="8" ShadowDepth="1" Opacity="0.08" Color="Gray"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#F8F9FA">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Style="{StaticResource ModernCardStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="تاريخ المعاملات" FontSize="24" FontWeight="Bold" Foreground="#212529"/>
+                    <TextBlock Text="عرض وإدارة جميع المعاملات المالية والفواتير" 
+                               FontSize="14" Foreground="#6C757D" Margin="0,4,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Button Style="{StaticResource ActionButtonStyle}" 
+                            Command="{Binding RefreshCommand}"
+                            IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+                            Margin="0,0,8,0">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Refresh" Width="14" Height="14" Margin="0,0,6,0"/>
+                            <TextBlock Text="تحديث"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Style="{StaticResource ExportButtonStyle}" 
+                            Command="{Binding ExportToCsvCommand}"
+                            IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="Save" Width="14" Height="14" Margin="0,0,6,0"/>
+                            <TextBlock Text="تصدير"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Summary Statistics -->
+        <Border Grid.Row="1" Style="{StaticResource ModernCardStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Total Transactions -->
+                <Border Grid.Column="0" Style="{StaticResource StatCardStyle}" Background="#E7F3FF" Margin="0,0,8,0">
+                    <StackPanel>
+                        <TextBlock Text="إجمالي المعاملات" FontSize="12" Foreground="#0066CC" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding Summary.TotalTransactions}" FontSize="24" FontWeight="Bold" Foreground="#0066CC" Margin="0,4,0,0"/>
+                        <TextBlock Text="{Binding Summary.InvoicesCount, StringFormat='فاتورة {0}'}" FontSize="11" Foreground="#666"/>
+                        <TextBlock Text="{Binding Summary.PaymentsCount, StringFormat='دفعة {0}'}" FontSize="11" Foreground="#666"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Total Sales -->
+                <Border Grid.Column="1" Style="{StaticResource StatCardStyle}" Background="#E8F5E8" Margin="0,0,8,0">
+                    <StackPanel>
+                        <TextBlock Text="إجمالي المبيعات" FontSize="12" Foreground="#28A745" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding Summary.TotalInvoicesAmount, StringFormat='{}{0:N2} USD'}" 
+                                   FontSize="20" FontWeight="Bold" Foreground="#28A745" Margin="0,4,0,0"/>
+                        <TextBlock Text="{Binding Summary.AverageInvoiceAmount, StringFormat='متوسط: {0:N2}'}" 
+                                   FontSize="11" Foreground="#666"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Total Payments -->
+                <Border Grid.Column="2" Style="{StaticResource StatCardStyle}" Background="#FFF3E0" Margin="0,0,8,0">
+                    <StackPanel>
+                        <TextBlock Text="إجمالي المدفوعات" FontSize="12" Foreground="#FF9800" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding Summary.TotalPaymentsAmount, StringFormat='{}{0:N2} USD'}" 
+                                   FontSize="20" FontWeight="Bold" Foreground="#FF9800" Margin="0,4,0,0"/>
+                        <TextBlock Text="{Binding Summary.AveragePaymentAmount, StringFormat='متوسط: {0:N2}'}" 
+                                   FontSize="11" Foreground="#666"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Net Amount -->
+                <Border Grid.Column="3" Style="{StaticResource StatCardStyle}" Background="#F3E5F5">
+                    <StackPanel>
+                        <TextBlock Text="الصافي" FontSize="12" Foreground="#9C27B0" FontWeight="Medium"/>
+                        <TextBlock Text="{Binding Summary.NetAmount, StringFormat='{}{0:N2} USD'}" 
+                                   FontSize="20" FontWeight="Bold" Foreground="#9C27B0" Margin="0,4,0,0"/>
+                        <TextBlock Text="المبيعات - المدفوعات" FontSize="11" Foreground="#666"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Filters -->
+        <Border Grid.Row="2" Style="{StaticResource ModernCardStyle}">
+            <StackPanel>
+                <!-- Quick Filter Buttons -->
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                    <TextBlock Text="فلاتر سريعة:" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,12,0"/>
+                    <Button Style="{StaticResource FilterButtonStyle}" Content="اليوم" Command="{Binding FilterTodayCommand}"/>
+                    <Button Style="{StaticResource FilterButtonStyle}" Content="هذا الأسبوع" Command="{Binding FilterThisWeekCommand}"/>
+                    <Button Style="{StaticResource FilterButtonStyle}" Content="هذا الشهر" Command="{Binding FilterThisMonthCommand}"/>
+                    <Button Style="{StaticResource FilterButtonStyle}" Content="مسح الفلاتر" Command="{Binding ClearFiltersCommand}"/>
+                </StackPanel>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Date Range and Search -->
+                    <Grid Grid.Row="0" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="120"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="من:" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,8,0"/>
+                        <DatePicker Grid.Column="1" SelectedDate="{Binding StartDate}" FontSize="13"/>
+
+                        <TextBlock Grid.Column="3" Text="إلى:" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,8,0"/>
+                        <DatePicker Grid.Column="4" SelectedDate="{Binding EndDate}" FontSize="13"/>
+
+                        <TextBox Grid.Column="6" Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" 
+                                 FontSize="13" Height="32" VerticalContentAlignment="Center">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Border Background="White" BorderBrush="#DEE2E6" BorderThickness="1" CornerRadius="6">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <ScrollViewer Grid.Column="0" x:Name="PART_ContentHost" 
+                                                                      VerticalAlignment="Center" Margin="12,0"/>
+                                                        <fa:ImageAwesome Grid.Column="1" Icon="Search" Width="14" Height="14" 
+                                                                         Foreground="#6C757D" Margin="0,0,12,0"/>
+                                                    </Grid>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="">
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <VisualBrush AlignmentX="Right" AlignmentY="Center" Stretch="None">
+                                                        <VisualBrush.Visual>
+                                                            <TextBlock Text="البحث..." Foreground="#ADB5BD" Margin="12,0"/>
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+
+                        <Button Grid.Column="8" Style="{StaticResource ActionButtonStyle}" 
+                                Command="{Binding LoadTransactionsCommand}" Content="بحث"/>
+                    </Grid>
+
+                    <!-- Additional Filters -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="24"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="الزبون:" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding Customers}" 
+                                  SelectedItem="{Binding SelectedCustomer}"
+                                  DisplayMemberPath="CustomerName" FontSize="13" Height="32">
+                            <ComboBox.Style>
+                                <Style TargetType="ComboBox">
+                                    <Style.Triggers>
+                                        <Trigger Property="SelectedItem" Value="{x:Null}">
+                                            <Setter Property="Text" Value="جميع الزبائن"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+
+                        <TextBlock Grid.Column="3" Text="النوع:" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="4" ItemsSource="{Binding TransactionTypes}" 
+                                  SelectedItem="{Binding SelectedTransactionType}" FontSize="13" Height="32"/>
+
+                        <TextBlock Grid.Column="6" Text="الدفع:" VerticalAlignment="Center" FontWeight="Medium" Margin="0,0,8,0"/>
+                        <ComboBox Grid.Column="7" ItemsSource="{Binding PaymentMethods}" 
+                                  SelectedItem="{Binding SelectedPaymentMethod}" FontSize="13" Height="32"/>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Transactions Data Grid -->
+        <Border Grid.Row="3" Style="{StaticResource ModernCardStyle}">
+            <Grid>
+                <!-- Loading Overlay -->
+                <Border Background="White" Opacity="0.8" 
+                        Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <fa:ImageAwesome Icon="Spinner" Spin="True" Width="32" Height="32" Foreground="#007BFF"/>
+                        <TextBlock Text="جاري التحميل..." FontSize="14" Foreground="#007BFF" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Data Grid -->
+                <DataGrid ItemsSource="{Binding TransactionsView}" SelectedItem="{Binding SelectedTransaction}"
+                          AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                          GridLinesVisibility="None" HeadersVisibility="Column" 
+                          AlternatingRowBackground="#F8F9FA" RowHeight="40"
+                          FontSize="13" Background="Transparent">
+
+                    <DataGrid.Columns>
+                        <!-- Transaction Type -->
+                        <DataGridTemplateColumn Header="النوع" Width="80" CanUserSort="True" SortMemberPath="TransactionType">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <fa:ImageAwesome Icon="{Binding StatusIcon}" Width="16" Height="16" 
+                                                         Foreground="{Binding StatusColor}" Margin="0,0,6,0"/>
+                                        <TextBlock Text="{Binding TransactionType}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Transaction Number -->
+                        <DataGridTextColumn Header="الرقم" Binding="{Binding TransactionNumber}" Width="120" CanUserSort="True"/>
+
+                        <!-- Date -->
+                        <DataGridTextColumn Header="التاريخ" Binding="{Binding TransactionDateDisplay}" Width="140" CanUserSort="True"/>
+
+                        <!-- Customer -->
+                        <DataGridTextColumn Header="الزبون" Binding="{Binding CustomerName}" Width="150" CanUserSort="True"/>
+
+                        <!-- Amount -->
+                        <DataGridTemplateColumn Header="المبلغ" Width="120" CanUserSort="True" SortMemberPath="Amount">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding AmountDisplay}" VerticalAlignment="Center" FontWeight="Medium">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding TransactionType}" Value="فاتورة">
+                                                        <Setter Property="Foreground" Value="#28A745"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding TransactionType}" Value="دفعة">
+                                                        <Setter Property="Foreground" Value="#DC3545"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <!-- Payment Method -->
+                        <DataGridTextColumn Header="طريقة الدفع" Binding="{Binding PaymentMethod}" Width="100" CanUserSort="True"/>
+
+                        <!-- Truck Number (for invoices) -->
+                        <DataGridTextColumn Header="رقم الشاحنة" Binding="{Binding TruckNumber}" Width="100" CanUserSort="True"/>
+
+                        <!-- Weight (for invoices) -->
+                        <DataGridTextColumn Header="الوزن" Binding="{Binding WeightDisplay}" Width="100" CanUserSort="True"/>
+
+                        <!-- Notes -->
+                        <DataGridTextColumn Header="ملاحظات" Binding="{Binding Notes}" Width="*" CanUserSort="False"/>
+                    </DataGrid.Columns>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#E3F2FD"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+            </Grid>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="4" Background="White" BorderBrush="#DEE2E6" BorderThickness="0,1,0,0" Padding="20,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <fa:ImageAwesome Icon="{Binding StatusIcon}" Width="16" Height="16" 
+                                     Foreground="{Binding StatusColor}" Margin="0,0,8,0"/>
+                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" FontSize="13"/>
+                </StackPanel>
+
+                <TextBlock Grid.Column="2" Text="{Binding Transactions.Count, StringFormat='عدد المعاملات: {0}'}" 
+                           VerticalAlignment="Center" FontSize="13" Foreground="#6C757D"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -45,6 +45,9 @@ namespace PoultrySlaughterPOS
         private DateTime _lastStatisticsUpdate = DateTime.MinValue;
         private readonly TimeSpan _statisticsRefreshInterval = TimeSpan.FromMinutes(5);
 
+        private TransactionHistoryView? _transactionHistoryView;
+        private TransactionHistoryViewModel? _transactionHistoryViewModel;
+
         #endregion
 
         #region Constructor
@@ -193,6 +196,52 @@ namespace PoultrySlaughterPOS
         #endregion
 
         #region Navigation Event Handlers
+
+
+
+        /// <summary>
+        /// Handles transaction history navigation with comprehensive error handling
+        /// and proper view initialization
+        /// </summary>
+        private async void TransactionHistory_Click(object sender, RoutedEventArgs e)
+        {
+            if (_isNavigating) return;
+
+            try
+            {
+                await NavigateToViewAsync("TransactionHistory", async () =>
+                {
+                    UpdateStatusMessage("جاري تحميل تاريخ المعاملات...");
+
+                    // Create or reuse transaction history view
+                    if (_transactionHistoryView == null)
+                    {
+                        _transactionHistoryViewModel = _serviceProvider.GetRequiredService<TransactionHistoryViewModel>();
+                        _transactionHistoryView = _serviceProvider.GetRequiredService<TransactionHistoryView>();
+                        _transactionHistoryView.SetViewModel(_transactionHistoryViewModel);
+
+                        _logger.LogInformation("Transaction History view created and configured successfully");
+                    }
+
+                    // Set content and make visible
+                    DynamicContentPresenter.Content = _transactionHistoryView;
+                    DynamicContentPresenter.Visibility = Visibility.Visible;
+
+                    // Initialize transaction history system
+                    if (_transactionHistoryView != null)
+                    {
+                        await _transactionHistoryView.InitializeAsync();
+                    }
+
+                    UpdateStatusMessage("تاريخ المعاملات جاهز");
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error navigating to Transaction History view");
+                HandleNavigationError("تاريخ المعاملات", ex);
+            }
+        }
 
         /// <summary>
         /// Handles dashboard navigation with comprehensive state management
@@ -344,28 +393,7 @@ namespace PoultrySlaughterPOS
             }
         }
 
-        /// <summary>
-        /// Handles transaction history navigation (future implementation)
-        /// </summary>
-        private void TransactionHistory_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                UpdateStatusMessage("تاريخ المعاملات قيد التطوير...");
-                MessageBox.Show(
-                    "وحدة تاريخ المعاملات قيد التطوير وستكون متاحة في الإصدار القادم.",
-                    "قريباً",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-
-                _logger.LogInformation("Transaction History navigation attempted - feature under development");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "Error in Transaction History navigation");
-            }
-        }
-
+     
         /// <summary>
         /// Handles reports navigation (future implementation)
         /// </summary>
