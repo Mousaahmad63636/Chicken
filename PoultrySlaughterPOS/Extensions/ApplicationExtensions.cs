@@ -212,22 +212,5 @@ namespace PoultrySlaughterPOS.Extensions
     }
 }
 
-namespace PoultrySlaughterPOS
-{
-    /// <summary>
-    /// Application extension to provide direct Services property access.
-    /// Enables clean syntax: App.Current.Services.GetRequiredService<T>()
-    /// </summary>
-    public partial class App
-    {
-        /// <summary>
-        /// Provides direct access to the dependency injection service provider.
-        /// CRITICAL: Resolves CS1061 'Application' does not contain definition for 'Services' errors.
-        /// </summary>
-        public static IServiceProvider Services => Extensions.ApplicationExtensions.Services;
-
-        // NOTE: OnExit method removed to prevent CS0111 duplicate method error
-        // The comprehensive OnExit implementation in App.xaml.cs already handles 
-        // service provider disposal by calling this.DisposeServiceProvider()
-    }
-}
+// REMOVED: Conflicting partial App class that was preventing InitializeComponent() generation
+// The App class is now only defined in App.xaml.cs where it belongs

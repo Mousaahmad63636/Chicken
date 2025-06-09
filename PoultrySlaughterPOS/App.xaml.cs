@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PoultrySlaughterPOS.Controls;
 using PoultrySlaughterPOS.Data;
 using PoultrySlaughterPOS.Extensions;
 using PoultrySlaughterPOS.Repositories;
@@ -11,461 +10,217 @@ using PoultrySlaughterPOS.Services.Repositories;
 using PoultrySlaughterPOS.Services.Repositories.Implementations;
 using PoultrySlaughterPOS.ViewModels;
 using PoultrySlaughterPOS.Views;
-using PoultrySlaughterPOS.Views.Dialogs;
-using PoultrySlaughterPOS.Converters;
-using Serilog;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace PoultrySlaughterPOS
 {
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
     public partial class App : Application
     {
-        #region Private Fields
+        private readonly IServiceProvider _serviceProvider;
+        private readonly IConfiguration _configuration;
 
-        private ServiceProvider? _serviceProvider;
-        private readonly object _lockObject = new object();
+        public IServiceProvider ServiceProvider => _serviceProvider;
 
-        #endregion
-
-        #region Application Lifecycle
-
-        protected override async void OnStartup(StartupEventArgs e)
+        public App()
         {
-            try
-            {
-                ConfigureLogging();
+            // Set a consistent culture for the application
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 
-                Log.Information("=== Poultry Slaughter POS Application Starting ===");
-                Log.Information("Startup initiated with complete customer management integration");
-
-                var configuration = BuildConfiguration();
-
-                _serviceProvider = BuildServiceProvider(configuration);
-
-                this.ConfigureServiceProvider(_serviceProvider);
-
-                Log.Information("Service provider configured successfully");
-
-                await ShowMainWindowAsync();
-
-                Log.Information("=== Poultry Slaughter POS Application Started Successfully ===");
-                base.OnStartup(e);
-            }
-            catch (Exception ex)
-            {
-                HandleCriticalStartupError(ex);
-            }
-        }
-
-        protected override async void OnExit(ExitEventArgs e)
-        {
-            try
-            {
-                Log.Information("=== Poultry Slaughter POS Application Shutdown Initiated ===");
-
-                this.DisposeServiceProvider();
-
-                base.OnExit(e);
-                Log.Information("=== Poultry Slaughter POS Application Shutdown Completed ===");
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Error occurred during application shutdown");
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
-        }
-
-        #endregion
-
-        #region Configuration Methods
-
-        private static void ConfigureLogging()
-        {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console(
-                    outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}")
-                .WriteTo.File(
-                    path: "logs/pos-application-.txt",
-                    rollingInterval: RollingInterval.Day,
-                    retainedFileCountLimit: 30,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}")
-                .WriteTo.File(
-                    path: "logs/errors/error-log-.txt",
-                    rollingInterval: RollingInterval.Day,
-                    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Error,
-                    retainedFileCountLimit: 90,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}")
-                .WriteTo.File(
-                    path: "logs/debug/debug-log-.txt",
-                    rollingInterval: RollingInterval.Day,
-                    restrictedToMinimumLevel: Serilog.Events.LogEventLevel.Debug,
-                    retainedFileCountLimit: 7,
-                    outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {Level:u3}] {SourceContext}: {Message:lj}{NewLine}{Exception}")
-                .MinimumLevel.Information()
-                .MinimumLevel.Override("Microsoft.EntityFrameworkCore", Serilog.Events.LogEventLevel.Warning)
-                .MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", Serilog.Events.LogEventLevel.Warning)
-                .Enrich.WithThreadId()
-                .Enrich.WithMachineName()
-                .Enrich.WithEnvironmentName()
-                .CreateLogger();
-
-            Log.Information("Serilog logging infrastructure configured successfully");
-        }
-
-        private static IConfiguration BuildConfiguration()
-        {
-            var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "Production";
-
-            return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
-                .AddEnvironmentVariables("POULTRY_POS_")
                 .Build();
-        }
 
-        private static ServiceProvider BuildServiceProvider(IConfiguration configuration)
-        {
             var services = new ServiceCollection();
+            ConfigureServices(services);
+            _serviceProvider = services.BuildServiceProvider();
 
-            ConfigureAllServices(services, configuration);
-
-            var serviceProvider = services.BuildServiceProvider();
-            Log.Information("Service registration completed - {ServiceCount} services configured", services.Count);
-
-            return serviceProvider;
+            // Configure the service provider using existing extension method
+            this.ConfigureServiceProvider(_serviceProvider);
         }
 
-        #endregion
-
-        #region Service Configuration
-
-        private static void ConfigureAllServices(IServiceCollection services, IConfiguration configuration)
+        private void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(configuration);
+            // Core Services
+            services.AddSingleton<IConfiguration>(_configuration);
 
-            ConfigureDatabaseServices(services, configuration);
-
-            ConfigureRepositoryServices(services);
-
-            ConfigureBusinessServices(services);
-
-            ConfigurePresentationServices(services);
-
-            ConfigureCrossCuttingServices(services, configuration);
-
-            Log.Information("Service configuration completed successfully with {ServiceCount} services registered (complete customer management integration)",
-                           services.Count);
-        }
-
-        private static void ConfigureDatabaseServices(IServiceCollection services, IConfiguration configuration)
-        {
-            var useTransactionalOperations = configuration.GetValue<bool>("Database:UseExplicitTransactions", true);
-            var enableRetryOnFailure = configuration.GetValue<bool>("Database:EnableRetryOnFailure", false);
-            var connectionString = configuration.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException("DefaultConnection connection string is required");
-
-            Log.Information("Database configuration - UseExplicitTransactions: {UseTransactions}, EnableRetryOnFailure: {EnableRetry}",
-                useTransactionalOperations, enableRetryOnFailure);
-
+            // Database Context - Use Scoped only, no DbContextPool to avoid DI issues
             services.AddDbContext<PoultryDbContext>(options =>
-            {
-                ConfigureDbContextOptions(options, connectionString, enableRetryOnFailure, useTransactionalOperations);
-            }, ServiceLifetime.Scoped);
+                options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"))
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors(), ServiceLifetime.Scoped);
 
-            services.AddSingleton<IDbContextFactory<PoultryDbContext>>(serviceProvider =>
+            // DbContext Factory - Use Scoped instead of Singleton to avoid DI conflicts
+            services.AddScoped<IDbContextFactory<PoultryDbContext>>(provider =>
             {
-                return new PoultryDbContextFactory(connectionString, enableRetryOnFailure, useTransactionalOperations);
+                var connectionString = _configuration.GetConnectionString("DefaultConnection");
+                var options = new DbContextOptionsBuilder<PoultryDbContext>()
+                    .UseSqlServer(connectionString)
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors()
+                    .Options;
+                return new RuntimePoultryDbContextFactory(options);
             });
 
-            services.AddTransient<IDatabaseInitializationService, DatabaseInitializationService>();
-        }
-
-        private static void ConfigureRepositoryServices(IServiceCollection services)
-        {
-            services.AddScoped<ITruckRepository, TruckRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
-            services.AddScoped<IPaymentRepository, PaymentRepository>();
-            services.AddScoped<ITruckLoadRepository, TruckLoadRepository>();
-            services.AddScoped<IDailyReconciliationRepository, DailyReconciliationRepository>();
-            services.AddScoped<IAuditLogRepository, AuditLogRepository>();
-            services.AddScoped<ITransactionProcessingService, TransactionProcessingService>();
-
-            services.AddScoped<IUnitOfWork>(serviceProvider =>
+            // Unit of Work - Register with proper dependencies
+            services.AddScoped<IUnitOfWork>(provider =>
             {
-                var context = serviceProvider.GetRequiredService<PoultryDbContext>();
-                var contextFactory = serviceProvider.GetRequiredService<IDbContextFactory<PoultryDbContext>>();
-                var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
+                var context = provider.GetRequiredService<PoultryDbContext>();
+                var contextFactory = provider.GetRequiredService<IDbContextFactory<PoultryDbContext>>();
+                var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
                 return new UnitOfWork(context, contextFactory, loggerFactory);
             });
 
-            Log.Debug("Repository layer configured with comprehensive data access patterns");
-        }
-
-        private static void ConfigureBusinessServices(IServiceCollection services)
-        {
+            // Business Services (only include existing services)
             services.AddScoped<IErrorHandlingService, ErrorHandlingService>();
+            services.AddScoped<ITransactionProcessingService, TransactionProcessingService>();
             services.AddScoped<ITruckLoadingService, TruckLoadingService>();
             services.AddScoped<IPOSService, POSService>();
 
-            Log.Debug("Business logic layer configured with comprehensive service patterns including Export and Printing services");
-        }
+            // View Models (only include existing ViewModels)
+            services.AddScoped<TruckLoadingViewModel>();
+            services.AddScoped<POSViewModel>();
+            services.AddScoped<CustomerAccountsViewModel>();
+            services.AddScoped<TransactionHistoryViewModel>();
 
-        private static void ConfigurePresentationServices(IServiceCollection services)
-        {
-            services.AddTransient<TruckLoadingViewModel>();
-            services.AddTransient<POSViewModel>();
-            services.AddTransient<CustomerAccountsViewModel>();
-            services.AddTransient<TransactionHistoryViewModel>();
+            // Views (register according to their actual constructor patterns)
+            services.AddTransient<MainWindow>();
 
-            services.AddTransient<AddCustomerDialogViewModel>();
+            // TruckLoadingView expects (TruckLoadingViewModel, ILogger<TruckLoadingView>)
+            services.AddTransient<TruckLoadingView>(provider =>
+                new TruckLoadingView(
+                    provider.GetRequiredService<TruckLoadingViewModel>(),
+                    provider.GetRequiredService<ILogger<TruckLoadingView>>()));
 
-            services.AddTransient<TruckLoadingView>();
+            // Other views use parameterless constructors and SetViewModel pattern
             services.AddTransient<POSView>();
             services.AddTransient<CustomerAccountsView>();
             services.AddTransient<TransactionHistoryView>();
 
-            services.AddTransient<AddCustomerDialog>();
-
-            services.AddTransient<CustomerListControl>();
-            services.AddTransient<CustomerDetailsControl>();
-            services.AddTransient<AccountStatementControl>();
-            services.AddTransient<PaymentHistoryControl>();
-            services.AddTransient<DebtManagementControl>();
-
-            services.AddSingleton<InverseBooleanConverter>();
-
-            services.AddTransient<MainWindow>();
-
-            Log.Debug("Presentation layer configured with complete customer management integration");
-        }
-
-        private static void ConfigureCrossCuttingServices(IServiceCollection services, IConfiguration configuration)
-        {
+            // Logging
             services.AddLogging(builder =>
             {
-                builder.AddSerilog();
+                builder.AddConsole();
+                builder.AddDebug();
                 builder.SetMinimumLevel(LogLevel.Information);
-                builder.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
-                builder.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
-                builder.AddFilter("Microsoft.EntityFrameworkCore.Model.Validation", LogLevel.Warning);
             });
-
-            services.AddMemoryCache(options =>
-            {
-                options.SizeLimit = 1000;
-                options.CompactionPercentage = 0.25;
-            });
-
-            services.Configure<ApplicationSettings>(configuration.GetSection("Application"));
-            services.Configure<DatabaseSettings>(configuration.GetSection("Database"));
-
-            services.AddHttpClient("DefaultClient", client =>
-            {
-                client.Timeout = TimeSpan.FromSeconds(30);
-            });
-
-            Log.Debug("Cross-cutting concerns configured successfully");
         }
 
-        private static void ConfigureDbContextOptions(DbContextOptionsBuilder options, string connectionString,
-            bool enableRetryOnFailure, bool useTransactionalOperations)
+        protected override async void OnStartup(StartupEventArgs e)
         {
-            options.UseSqlServer(connectionString, sqlOptions =>
-            {
-                if (enableRetryOnFailure && !useTransactionalOperations)
-                {
-                    sqlOptions.EnableRetryOnFailure(
-                        maxRetryCount: 3,
-                        maxRetryDelay: TimeSpan.FromSeconds(5),
-                        errorNumbersToAdd: new[] { -2, 1205, 1222 });
+            // CRITICAL: Call InitializeComponent() first
+            InitializeComponent();
 
-                    Log.Information("SQL Server retry strategy enabled (explicit transactions disabled)");
-                }
-                else if (useTransactionalOperations)
-                {
-                    Log.Information("SQL Server retry strategy disabled to support explicit transactions");
-                }
+            // Set default culture for all UI threads
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(
+                    XmlLanguage.GetLanguage(CultureInfo.InvariantCulture.IetfLanguageTag)));
 
-                sqlOptions.CommandTimeout(120);
-                sqlOptions.MigrationsAssembly("PoultrySlaughterPOS");
-            });
+            base.OnStartup(e);
 
-            options.EnableSensitiveDataLogging(false);
-            options.EnableServiceProviderCaching(true);
-            options.EnableDetailedErrors(true);
-
-            options.UseQueryTrackingBehavior(useTransactionalOperations ?
-                QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking);
-
-            options.LogTo(message => Log.Debug("EF Core: {Message}", message), LogLevel.Debug);
-        }
-
-        #endregion
-
-        #region Initialization Methods
-
-        private async Task InitializeDatabaseAsync()
-        {
             try
             {
-                using var scope = this.CreateScope();
-                var dbInitService = scope.ServiceProvider.GetRequiredService<IDatabaseInitializationService>();
+                // Create log directory
+                var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+                Directory.CreateDirectory(logPath);
+                File.WriteAllText(Path.Combine(logPath, "startup.log"), $"Application starting at {DateTime.Now}...");
 
-                Log.Information("Database initialization started");
-                await dbInitService.InitializeAsync();
-                Log.Information("Database initialization completed successfully");
+                // Initialize database in a separate thread to keep UI responsive
+                await Task.Run(async () =>
+                {
+                    try
+                    {
+                        using var scope = this.CreateScope();
+                        var context = scope.ServiceProvider.GetRequiredService<PoultryDbContext>();
+
+                        // Ensure database exists and is up to date
+                        await context.Database.EnsureCreatedAsync();
+
+                        // Initialize database
+                        DatabaseInitializer.Initialize(context);
+
+                        File.AppendAllText(Path.Combine(logPath, "startup.log"),
+                            $"\nDatabase initialized successfully at {DateTime.Now}");
+                    }
+                    catch (Exception dbEx)
+                    {
+                        File.AppendAllText(Path.Combine(logPath, "startup.log"),
+                            $"\nDatabase error at {DateTime.Now}: {dbEx.Message}");
+
+                        // Use Dispatcher to show message box from background thread
+                        Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show(
+                                $"Database initialization error: {dbEx.Message}\n\nPlease ensure SQL Server is installed and accessible with the provided credentials.",
+                                "Database Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+                            Shutdown();
+                        });
+                        return;
+                    }
+                });
+
+                // Show the main window
+                Dispatcher.Invoke(() =>
+                {
+                    try
+                    {
+                        var mainWindow = this.GetRequiredService<MainWindow>();
+                        mainWindow.Show();
+
+                        File.AppendAllText(Path.Combine(logPath, "startup.log"),
+                            $"\nMain window displayed successfully at {DateTime.Now}");
+                    }
+                    catch (Exception mainEx)
+                    {
+                        File.AppendAllText(Path.Combine(logPath, "startup.log"),
+                            $"\nMain window error at {DateTime.Now}: {mainEx.Message}");
+                        throw;
+                    }
+                });
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Critical failure during database initialization");
-                throw new ApplicationException("Database initialization failed. Please check the connection string and ensure SQL Server is running.", ex);
-            }
-        }
+                var errorMessage = $"An error occurred while starting the application: {ex.Message}\n\n" +
+                                  "Please ensure:\n" +
+                                  "1. SQL Server is installed and accessible\n" +
+                                  "2. .NET 8.0 Desktop Runtime is installed\n" +
+                                  "3. You have necessary permissions to access the application folder";
 
-        private async Task ShowMainWindowAsync()
-        {
-            try
-            {
-                var mainWindow = this.GetRequiredService<MainWindow>();
+                MessageBox.Show(errorMessage, "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                MainWindow = mainWindow;
-
-                mainWindow.Show();
-
-                Log.Information("Main window created and displayed successfully");
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "Critical failure creating main window");
-                throw new ApplicationException("Failed to create main application window", ex);
-            }
-        }
-
-        #endregion
-
-        #region Error Handling
-
-        private void HandleCriticalStartupError(Exception ex)
-        {
-            Log.Fatal(ex, "=== CRITICAL FAILURE DURING APPLICATION STARTUP ===");
-
-            var errorMessage = ex switch
-            {
-                InvalidOperationException => "خطأ في إعدادات التطبيق أو قاعدة البيانات",
-                UnauthorizedAccessException => "ليس لديك صلاحية لتشغيل التطبيق",
-                FileNotFoundException => "ملفات التطبيق مفقودة أو تالفة",
-                _ => "فشل حرج في تشغيل التطبيق"
-            };
-
-            MessageBox.Show(
-                $"{errorMessage}\n\nتفاصيل الخطأ:\n{ex.Message}\n\nيرجى التواصل مع الدعم الفني.",
-                "خطأ حرج في التطبيق",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
-
-            try
-            {
-                _serviceProvider?.Dispose();
-            }
-            catch (Exception cleanupEx)
-            {
-                Log.Error(cleanupEx, "Error during emergency cleanup");
-            }
-
-            Environment.Exit(1);
-        }
-
-        #endregion
-    }
-
-    #region Supporting Classes
-
-    public class PoultryDbContextFactory : IDbContextFactory<PoultryDbContext>
-    {
-        private readonly string _connectionString;
-        private readonly DbContextOptions<PoultryDbContext> _options;
-        private readonly bool _enableRetryOnFailure;
-        private readonly bool _useTransactionalOperations;
-
-        public PoultryDbContextFactory(string connectionString, bool enableRetryOnFailure = false, bool useTransactionalOperations = true)
-        {
-            _connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
-            _enableRetryOnFailure = enableRetryOnFailure;
-            _useTransactionalOperations = useTransactionalOperations;
-            _options = CreateDbContextOptions();
-        }
-
-        private DbContextOptions<PoultryDbContext> CreateDbContextOptions()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<PoultryDbContext>();
-
-            optionsBuilder.UseSqlServer(_connectionString, sqlOptions =>
-            {
-                if (_enableRetryOnFailure && !_useTransactionalOperations)
+                try
                 {
-                    sqlOptions.EnableRetryOnFailure(
-                        maxRetryCount: 3,
-                        maxRetryDelay: TimeSpan.FromSeconds(5),
-                        errorNumbersToAdd: new[] { -2, 1205, 1222 });
+                    var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+                    File.AppendAllText(Path.Combine(logPath, "error.log"),
+                        $"\n[{DateTime.Now}] Fatal startup error:\n{ex}\n");
+                }
+                catch
+                {
+                    // If we can't log the error, just shutdown
                 }
 
-                sqlOptions.CommandTimeout(120);
-                sqlOptions.MigrationsAssembly("PoultrySlaughterPOS");
-            });
-
-            optionsBuilder.EnableSensitiveDataLogging(false);
-            optionsBuilder.EnableServiceProviderCaching(false);
-            optionsBuilder.EnableDetailedErrors(true);
-
-            optionsBuilder.UseQueryTrackingBehavior(_useTransactionalOperations ?
-                QueryTrackingBehavior.TrackAll : QueryTrackingBehavior.NoTracking);
-
-            return optionsBuilder.Options;
+                Shutdown();
+            }
         }
 
-        public PoultryDbContext CreateDbContext()
+        protected override void OnExit(ExitEventArgs e)
         {
-            return new PoultryDbContext(_options);
-        }
+            base.OnExit(e);
 
-        public Task<PoultryDbContext> CreateDbContextAsync(CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(CreateDbContext());
+            // Use existing extension method for proper disposal
+            this.DisposeServiceProvider();
         }
     }
-
-    public class ApplicationSettings
-    {
-        public string Name { get; set; } = "Poultry Slaughter POS";
-        public string Version { get; set; } = "1.0.0";
-        public int MaxRetryAttempts { get; set; } = 3;
-        public int CommandTimeoutSeconds { get; set; } = 120;
-        public bool EnableDetailedLogging { get; set; } = false;
-        public string Theme { get; set; } = "Light";
-        public string Language { get; set; } = "ar-SA";
-        public bool EnablePerformanceCounters { get; set; } = false;
-        public int CacheExpirationMinutes { get; set; } = 30;
-    }
-
-    public class DatabaseSettings
-    {
-        public bool UseExplicitTransactions { get; set; } = true;
-        public bool EnableRetryOnFailure { get; set; } = false;
-        public int CommandTimeoutSeconds { get; set; } = 120;
-        public int MaxRetryCount { get; set; } = 3;
-        public int MaxRetryDelaySeconds { get; set; } = 5;
-        public bool EnableDetailedErrors { get; set; } = true;
-        public bool EnableSensitiveDataLogging { get; set; } = false;
-    }
-
-    #endregion
 }

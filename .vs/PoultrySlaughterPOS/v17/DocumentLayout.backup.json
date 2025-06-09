@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\obj\\Debug\\net8.0-windows\\App.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:PoultrySlaughterPOS\\obj\\Debug\\net8.0-windows\\App.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\viewmodels\\transactionhistoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\viewmodels\\transactionhistoryviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\data\\poultrydbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\data\\poultrydbcontextfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\extensions\\applicationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\extensions\\applicationextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\data\\poultrydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\data\\poultrydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\services\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\services\\databaseinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|c:\\users\\mr. ahmad\\desktop\\8-6-chicken\\poultryslaughterpos\\poultryslaughterpos\\appsettings.json||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{74BA1800-0731-4B37-BF61-825C300AE96A}|PoultrySlaughterPOS\\PoultrySlaughterPOS.csproj|solutionrelative:poultryslaughterpos\\appsettings.json||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +34,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "App.g.cs",
-              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\obj\\Debug\\net8.0-windows\\App.g.cs",
-              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\obj\\Debug\\net8.0-windows\\App.g.cs",
-              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\obj\\Debug\\net8.0-windows\\App.g.cs",
-              "RelativeToolTip": "PoultrySlaughterPOS\\obj\\Debug\\net8.0-windows\\App.g.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAAADQAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ApplicationExtensions.cs",
+              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Extensions\\ApplicationExtensions.cs",
+              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\Extensions\\ApplicationExtensions.cs",
+              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Extensions\\ApplicationExtensions.cs",
+              "RelativeToolTip": "PoultrySlaughterPOS\\Extensions\\ApplicationExtensions.cs",
+              "ViewState": "AgIAAKQAAAAAAAAAAAAwwNcAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T05:26:05.143Z",
+              "WhenOpened": "2025-06-09T06:22:16.196Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\App.xaml.cs",
+              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\App.xaml.cs",
+              "RelativeToolTip": "PoultrySlaughterPOS\\App.xaml.cs",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAwwMUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T06:03:22.169Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "TransactionHistoryViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\ViewModels\\TransactionHistoryViewModel.cs",
-              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\ViewModels\\TransactionHistoryViewModel.cs",
-              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\ViewModels\\TransactionHistoryViewModel.cs",
-              "RelativeToolTip": "PoultrySlaughterPOS\\ViewModels\\TransactionHistoryViewModel.cs",
-              "ViewState": "AgIAAEYCAAAAAAAAAAAqwF0CAAABAAAAAAAAAA==",
+              "Title": "PoultryDbContextFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Data\\PoultryDbContextFactory.cs",
+              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\Data\\PoultryDbContextFactory.cs",
+              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Data\\PoultryDbContextFactory.cs",
+              "RelativeToolTip": "PoultrySlaughterPOS\\Data\\PoultryDbContextFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-09T05:25:03.362Z",
+              "WhenOpened": "2025-06-09T06:01:56.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DatabaseInitializer.cs",
+              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Services\\DatabaseInitializer.cs",
+              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\Services\\DatabaseInitializer.cs",
+              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Services\\DatabaseInitializer.cs",
+              "RelativeToolTip": "PoultrySlaughterPOS\\Services\\DatabaseInitializer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAwwDMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T06:01:19.748Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PoultryDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Data\\PoultryDbContext.cs",
+              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\Data\\PoultryDbContext.cs",
+              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\Data\\PoultryDbContext.cs",
+              "RelativeToolTip": "PoultrySlaughterPOS\\Data\\PoultryDbContext.cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAwwM8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-09T06:00:24.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\appsettings.json",
+              "RelativeDocumentMoniker": "PoultrySlaughterPOS\\appsettings.json",
+              "ToolTip": "C:\\Users\\Mr. Ahmad\\Desktop\\8-6-chicken\\PoultrySlaughterPOS\\PoultrySlaughterPOS\\appsettings.json",
+              "RelativeToolTip": "PoultrySlaughterPOS\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-09T05:52:04.268Z",
               "EditorCaption": ""
             }
           ]
